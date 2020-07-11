@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_md"
+    android:background="@drawable/transparent_dark">
+
+    <TextView
+        android:id="@+id/share_moments_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/txt_std"
+        android:fontFamily="@font/dosis_medium"
+        android:text="@string/share_moments_prompt"
+        android:drawableTop="@drawable/ic_not_hot"/>
+
+
+    <Button
+        android:id="@+id/cancel_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/clickable_std"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/txt_std"
+        android:fontFamily="@font/dosis_medium"
+        android:text="@string/cancel_sharing_moment_intent"
+        android:textAllCaps="false"
+        android:background="@android:color/transparent"/>
+
+
+    <Button
+        android:id="@+id/share_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/clickable_std"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/colorWhitish"
+        android:textSize="@dimen/txt_std"
+        android:fontFamily="@font/dosis_medium"
+        android:text="@string/continue_sharing_moment_intent"
+        android:textAllCaps="false"
+        android:background="@android:color/transparent"/>
+
+</LinearLayout>

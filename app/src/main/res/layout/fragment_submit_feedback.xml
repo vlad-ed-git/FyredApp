@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_md"
+        tools:context=".ui.about_app.SubmitFeedbackFragment">
+
+        <TextView
+            android:id="@+id/app_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_fyred_app_logo"
+            android:fontFamily="@font/lobster_two"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/txt_lg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/feedback_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/clickable_std"
+            android:fontFamily="@font/dosis_medium"
+            android:gravity="center"
+            android:text="@string/feedback_title"
+            android:textColor="@color/colorGrey"
+            android:textSize="@dimen/txt_std"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_name_tv" />
+
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_md"
+            android:numStars="5"
+            android:rating="2.5"
+            android:stepSize=".5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/feedback_title_tv" />
+
+        <EditText
+            android:id="@+id/feedback_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_md"
+            android:fontFamily="@font/dosis_medium"
+            android:gravity="start|top"
+            android:hint="@string/my_feeback_hint"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:minHeight="@dimen/msg_box_min_height"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/txt_std"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rating" />
+
+        <Button
+            android:id="@+id/submit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/clickable_std"
+            android:background="@drawable/custom_btn_bg"
+            android:fontFamily="@font/dosis_medium"
+            android:paddingStart="@dimen/clickable_sm"
+            android:paddingTop="@dimen/padding_std"
+            android:paddingEnd="@dimen/clickable_sm"
+            android:paddingBottom="@dimen/padding_std"
+            android:text="@string/send_feedback_txt"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/txt_std"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/feedback_et" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/clickable_sm"
+            android:layout_height="@dimen/clickable_sm"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/feedback_et" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

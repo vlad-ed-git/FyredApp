@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.dev_vlad.fyredapp.ui.home.HomeFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_contactsFragment"
+            app:destination="@id/contactsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recordMomentFragment"
+            app:destination="@id/recordMomentFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_hotSpotFragment"
+            app:destination="@id/hotSpotFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_submitFeedbackFragment"
+            app:destination="@id/submitFeedbackFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_aboutAppFragment"
+            app:destination="@id/aboutAppFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.dev_vlad.fyredapp.ui.welcome.WelcomeFragment"
+        android:label="@string/fragment_welcome_lbl"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.dev_vlad.fyredapp.ui.welcome.LoginFragment"
+        android:label="@string/sign_in_txt" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_aboutAppFragment"
+            app:destination="@id/aboutAppFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactsFragment"
+        android:name="com.dev_vlad.fyredapp.ui.contacts.ContactsFragment"
+        android:label="@string/my_contacts_fragment_lbl" />
+    <fragment
+        android:id="@+id/recordMomentFragment"
+        android:name="com.dev_vlad.fyredapp.ui.record.RecordMomentFragment"
+        android:label="@string/capture_e_moment" >
+        <argument
+            android:name="userLastKnownLocation"
+            app:argType="com.dev_vlad.fyredapp.models.CustomLatLng"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/hotSpotFragment"
+        android:name="com.dev_vlad.fyredapp.ui.hotspots.HotSpotFragment"
+        android:label="@string/app_name" >
+        <argument
+            android:name="hotspot"
+            app:argType="com.dev_vlad.fyredapp.models.UserMomentWrapper"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.dev_vlad.fyredapp.ui.profile.UserProfileFragment"
+        android:label="@string/my_profile_fragment_lbl"
+        tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/submitFeedbackFragment"
+        android:name="com.dev_vlad.fyredapp.ui.about_app.SubmitFeedbackFragment"
+        android:label="SubmitFeedbackFragment" />
+    <fragment
+        android:id="@+id/aboutAppFragment"
+        android:name="com.dev_vlad.fyredapp.ui.about_app.AboutAppFragment"
+        android:label="AboutAppFragment" />
+</navigation>

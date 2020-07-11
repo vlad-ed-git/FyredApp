@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_about_app"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_md"
+        tools:context=".ui.about_app.AboutAppFragment">
+
+        <TextView
+            android:id="@+id/app_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lobster_two"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/txt_lg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/space_lg"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/app_version_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dosis_medium"
+            android:gravity="center"
+            android:text="@string/app_version_txt"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="@dimen/txt_md"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_name_tv"
+            android:layout_marginTop="@dimen/padding_std"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageView
+            android:id="@+id/app_logo_tv"
+            android:layout_width="@dimen/clickable_std"
+            android:layout_height="@dimen/clickable_std"
+            android:fontFamily="@font/dosis_medium"
+            android:src="@drawable/ic_fyred_app_logo"
+            android:contentDescription="@string/app_logo_desc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_version_tv"
+            android:layout_marginTop="@dimen/padding_md"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/app_copyright_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dosis_medium"
+            android:gravity="center"
+            android:drawableStart="@drawable/ic_copyright"
+            android:text="@string/app_copyright_txt"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="@dimen/txt_md"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_logo_tv"
+            android:layout_marginTop="@dimen/padding_md"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/privacy_policy"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/clickable_std"
+            android:fontFamily="@font/dosis_medium"
+            android:gravity="center_vertical"
+            android:text="@string/review_privacy_policy_prompt"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="@dimen/txt_sm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="@dimen/padding_std"/>
+
+        <TextView
+            android:id="@+id/terms_n_conditions"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/clickable_std"
+            android:fontFamily="@font/dosis_medium"
+            android:gravity="center_vertical"
+            android:text="@string/review_terms_prompt"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="@dimen/txt_sm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/privacy_policy"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="@dimen/padding_std"/>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="@drawable/transparent_dark">
+
+    <ImageView
+        android:id="@+id/thumbnail_iv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="@dimen/max_preview_height"
+        android:adjustViewBounds="true"
+        android:minHeight="@dimen/sm_img_container_height"
+        android:contentDescription="@string/shared_moment_desc"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/moment_vid_pv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:maxHeight="@dimen/max_preview_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/thumbnail_iv"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/view_moments_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/clickable_std"
+        android:layout_marginTop="@dimen/padding_std"
+        android:fontFamily="@font/dosis_medium"
+        android:gravity="center"
+        android:text="@string/see_all_txt"
+        android:textAllCaps="false"
+        android:textColor="@color/colorFire"
+        android:textSize="@dimen/txt_std"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/padding_std"
+        android:drawableStart="@drawable/ic_hotspot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/moment_vid_pv" />
+
+    <Button
+        android:id="@+id/cancel_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/clickable_std"
+        android:layout_marginTop="@dimen/padding_std"
+        android:fontFamily="@font/dosis_medium"
+        android:gravity="center"
+        android:drawableStart="@drawable/ic_not_hot"
+        android:text="@string/seen_enough_txt"
+        android:textAllCaps="false"
+        android:textColor="@color/colorLightGrey"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/padding_std"
+        android:textSize="@dimen/txt_std"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_moments_btn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

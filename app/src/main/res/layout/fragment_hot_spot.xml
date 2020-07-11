@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_md"
+            tools:context=".ui.hotspots.HotSpotFragment">
+
+            <TextView
+                android:id="@+id/app_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_fyred_app_logo"
+                android:fontFamily="@font/lobster_two"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/txt_md"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/profile_pic"
+                android:layout_width="@dimen/profile_pic_sm"
+                android:layout_height="@dimen/profile_pic_sm"
+                android:layout_marginTop="@dimen/clickable_sm"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/profile_picture_desc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/app_name_tv" />
+
+            <TextView
+                android:id="@+id/contact_name_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_std"
+                android:layout_marginTop="@dimen/clickable_sm"
+                android:fontFamily="@font/dosis_medium"
+                android:gravity="center_vertical|start"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/txt_std"
+                app:layout_constraintEnd_toStartOf="@id/go_to_location_tv"
+                app:layout_constraintStart_toEndOf="@id/profile_pic"
+                app:layout_constraintTop_toBottomOf="@id/app_name_tv" />
+
+            <TextView
+                android:id="@+id/go_to_location_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/clickable_std"
+                android:layout_marginTop="@dimen/clickable_sm"
+                android:adjustViewBounds="true"
+                android:text="@string/directions_txt"
+                android:fontFamily="@font/dosis_medium"
+                android:textSize="@dimen/txt_std"
+                android:textColor="@android:color/white"
+                android:drawableTop="@drawable/ic_directions"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/app_name_tv" />
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabDots"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_pic"
+                app:tabBackground="@drawable/tab_selector"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/moments_view_pager"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_std"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tabDots" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </layout>

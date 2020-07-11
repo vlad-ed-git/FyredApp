@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/transparent_dark"
+    android:padding="@dimen/padding_std">
+
+    <TextView
+        android:id="@+id/cancel_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/clickable_std"
+        android:fontFamily="@font/dosis_medium"
+        android:importantForAutofill="no"
+        android:text="@string/cancel_txt"
+        android:textColor="@color/colorWhitish"
+        android:textSize="@dimen/txt_std"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="@dimen/padding_std" />
+
+    <TextView
+        android:id="@+id/delete_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/clickable_std"
+        android:fontFamily="@font/dosis_medium"
+        android:importantForAutofill="no"
+        android:text="@string/delete_txt"
+        android:textColor="@color/colorErrors"
+        android:textSize="@dimen/txt_std"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="@dimen/padding_std" />
+
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/moment_vid_pv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/max_preview_height"
+        app:layout_constraintTop_toBottomOf="@id/cancel_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/moment_photo_iv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/max_preview_height"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toBottomOf="@id/moment_vid_pv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/shared_moment_desc"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/done_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/clickable_std"
+        android:layout_margin="@dimen/padding_std"
+        android:fontFamily="@font/dosis_medium"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:text="@string/done_txt"
+        android:textColor="@color/colorWhitish"
+        android:textSize="@dimen/txt_std"
+        app:layout_constraintTop_toBottomOf="@id/moment_photo_iv"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/caption_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/clickable_std"
+        android:layout_margin="@dimen/padding_std"
+        android:layout_marginEnd="@dimen/padding_std"
+        android:fontFamily="@font/dosis_medium"
+        android:hint="@string/add_caption_txt"
+        android:importantForAutofill="no"
+        android:inputType="textNoSuggestions"
+        android:textColor="@color/colorWhitish"
+        android:textColorHint="@color/colorLightGrey"
+        app:layout_constraintTop_toBottomOf="@id/moment_photo_iv"
+        app:layout_constraintEnd_toStartOf="@id/done_tv"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

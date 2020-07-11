@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="recordedMoment" type="com.dev_vlad.fyredapp.models.RecordedMoment" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_std">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/shared_moment_desc" />
+
+        <ImageView
+            android:id="@+id/video_indicator_iv"
+            android:layout_width="@dimen/clickable_sm"
+            android:layout_height="@dimen/clickable_sm"
+            android:contentDescription="@string/video_indicator_iv_desc"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_play_video_circle"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/caption_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="bottom|center"
+            android:paddingStart="@dimen/padding_md"
+            android:paddingEnd="@dimen/padding_md"
+            android:layout_marginTop="@dimen/clickable_std"
+            android:background="@drawable/transparent_dark"
+            android:textColor="@color/colorWhitish"
+            android:fontFamily="@font/dosis_medium"
+            android:textSize="@dimen/txt_sm"/>
+
+    </FrameLayout>
+</layout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="userContact" type="com.dev_vlad.fyredapp.room.entities.MyContacts" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/padding_md"
+        android:paddingEnd="@dimen/padding_md"
+        android:paddingTop="@dimen/padding_std">
+
+        <ImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="@dimen/profile_pic_sm"
+            android:layout_height="@dimen/profile_pic_sm"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/profile_picture_desc" />
+
+        <TextView
+            android:id="@+id/contact_name_tv"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/profile_pic_sm"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toEndOf="@id/profile_pic"
+            android:layout_marginStart="@dimen/padding_md"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/can_view_my_spots_tv"
+            android:fontFamily="@font/dosis_medium"
+            android:textSize="@dimen/txt_std" />
+
+        <TextView
+            android:id="@+id/can_view_my_spots_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/profile_pic_sm"
+            android:fontFamily="@font/dosis_medium"
+            android:textSize="@dimen/txt_sm"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

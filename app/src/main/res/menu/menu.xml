@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/shareMoment"
+        android:title="@string/share_moments"
+        android:icon="@drawable/ic_twotone_share_24"
+        app:showAsAction="ifRoom"
+        android:visible="false"/>
+
+    <item
+        android:id="@+id/contactsFragment"
+        android:title="@string/my_contacts_fragment_lbl"
+        android:icon="@drawable/ic_contacts"
+        app:showAsAction="ifRoom"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/userProfileFragment"
+        android:title="@string/my_profile_fragment_lbl"
+        app:showAsAction="never"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/submitFeedbackFragment"
+        android:title="@string/feedback_fragment_lbl"
+        app:showAsAction="never"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/aboutAppFragment"
+        android:title="@string/about_app_fragment_lbl"
+        app:showAsAction="never"
+        android:visible="false" />
+</menu>

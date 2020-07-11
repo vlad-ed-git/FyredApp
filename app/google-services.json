@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1003037329552",
+    "firebase_url": "https://fyredapp.firebaseio.com",
+    "project_id": "fyredapp",
+    "storage_bucket": "fyredapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003037329552:android:7683a4cad289ea49ef3015",
+        "android_client_info": {
+          "package_name": "com.dev_vlad.fyredapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003037329552-1uuhuvuaol657k564ofgceumsqhurcat.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dev_vlad.fyredapp",
+            "certificate_hash": "dcd782327254395a89ef2290e48311b46e8e7892"
+          }
+        },
+        {
+          "client_id": "1003037329552-id736dkb85b5rformfgosn7173m12o9f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTf6fTroJZUiy_JA8B-n6T4cS6MxIxAks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1003037329552-id736dkb85b5rformfgosn7173m12o9f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

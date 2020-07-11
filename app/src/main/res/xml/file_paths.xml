@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path
+        name="fyred_app_photos"
+        path="Android/data/com.dev_vlad.fyredapp/files/Pictures" />
+</paths>

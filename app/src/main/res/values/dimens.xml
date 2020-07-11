@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_std">8dp</dimen>
+    <dimen name="padding_md">16dp</dimen>
+
+    <dimen name="clickable_sm">32dp</dimen>
+    <dimen name="clickable_std">48dp</dimen>
+
+    <dimen name="std_elevation">12dp</dimen>
+
+    <dimen name="txt_lg">24sp</dimen>
+    <dimen name="txt_md">18sp</dimen>
+    <dimen name="txt_std">16sp</dimen>
+    <dimen name="txt_sm">14sp</dimen>
+
+    <!-- MISC -->
+    <dimen name="sm_img_container_height">64dp</dimen>
+    <dimen name="profile_pic_std">120dp</dimen>
+    <dimen name="profile_pic_sm">50dp</dimen>
+    <dimen name="sm_elevation">2dp</dimen>
+    <dimen name="padding_sm">4dp</dimen>
+    <dimen name="max_preview_height">360dp</dimen>
+    <dimen name="msg_box_min_height">200dp</dimen>
+    <dimen name="clickable_lg">56dp</dimen>
+    <dimen name="icon_std">24dp</dimen>
+    <dimen name="profile_pic_md">96dp</dimen>
+    <dimen name="space_lg">120dp</dimen>
+</resources>

@@ -1,0 +1,125 @@
+<resources>
+    <string name="app_name" translatable="false">FyredApp</string>
+    <string name="app_version_txt">Version 0.1</string>
+    <string name="app_logo_desc">FyredApp Logo</string>
+    <string name="app_copyright_txt">2020 FyredApp LLC.</string>
+
+
+    <!-- ERROR Strings -->
+    <string name="err_try_again">Something went wrong! Please check your internet connection &amp; try again…</string>
+    <string name="err_internet">Slow or un-available internet connection</string>
+    <string name="username_err">please enter a 3 – 15 characters short username</string>
+    <string name="sign_in_failed">Sign in failed! Please verify your phone number, check your internet connection &amp; try again</string>
+    <string name="invalid_phone_number">Failed to verify your phone number. please check your info &amp; try again</string>
+    <string name="verify_phone_number">Please verify your phone number</string>
+    <string name="too_many_requests">You have made too many unsuccessful attempts, please try again later</string>
+    <string name="verification_failed">Failed to verify your phone number. Please check your info &amp; internet connection then try again</string>
+    <string name="invalid_verification_code_at_sign_in">Sign in failed! Please check your verification code &amp; try again </string>
+    <string name="sign_in_failed_verified_phone"><![CDATA[Sign in failed. Please check your internet connection & try again]]></string>
+
+    <!-- PERMISSIONS  -->
+    <string name="contacts_access_rationale">FyredApp requires permissions to read your phone contacts</string>
+    <string name="gallery_access_rationale">Storage Permissions are required to access your photo gallery</string>
+    <string name="camera_access_rationale">Camera Permissions are required to take a photo or record video</string>
+    <string name="location_access_rationale">Location Permissions are required to determine your current location</string>
+    <string name="location_access_denied">You have denied FyredApp permissions to access your location</string>
+    <string name="camera_access_denied">You have denied FyredApp permissions to your camera</string>
+    <string name="gallery_access_denied">You have denied FyredApp permissions to access your gallery</string>
+    <string name="contacts_access_denied">You have denied FyredApp permissions to access your phone contacts</string>
+
+
+    <!-- HOME FRAGMENT STRINGS -->
+    <string name="hot_spots_txt">Hot Spots</string>
+    <string name="my_location_txt">my location</string>
+    <string name="seen_enough_txt">Maybe Later…</string>
+    <string name="see_all_txt">See All</string>
+    <string name="google_play_services_not_available">Please install or update google play services on your phone!</string>
+    <string name="failed_to_load_map">Failed to load map</string>
+    <string name="show_my_location_iv_desc">Click to locate me</string>
+    <string name="saving_user_info_failed"><![CDATA[Failed to save your data! Please check your connection & try again]]></string>
+    <string name="null_last_known_location">Refreshing your location… if indoors move to an open window for a second &amp; try again</string>
+    <string name="please_turn_on_gps">"Please turn on your location settings, set to high accuracy then press back to resume here"</string>
+
+    <!-- WELCOME FRAGMENT STRINGS -->
+    <string name="get_started_txt">Click To Get Started</string>
+
+    <!-- LOG IN FRAGMENT STRINGS -->
+    <string name="terms_n_policy_prompt"><![CDATA[By clicking sign in, you are agreeing to our privacy policy and terms & conditions. Click here to review them first.]]></string>
+    <string name="fragment_welcome_lbl">Welcome</string>
+    <string name="country_code_hint">"+  "</string>
+    <string name="user_phone_hint">Phone number</string>
+    <string name="verification_code_hint">Verification code</string>
+    <string name="get_code_txt">Get code</string>
+    <string name="sign_in_txt">Sign In</string>
+    <string name="choose_location_txt">Choose your location</string>
+    <string name="sms_verification_code_info">Click \'get code\' and an SMS message containing the verification code shall be sent to your phone number. Carrier SMS charges may apply. Enter the verification code &amp; click sign in</string>
+    <string name="verification_code_sent_hint">code sent</string>
+    <string name="verification_code_sent_long_msg">an sms with the verification code has been sent</string>
+    <string name="resend_verification_code">resend code</string>
+
+    <!-- MY CONTACTS FRAGMENT STRINGS -->
+    <string name="my_contacts_fragment_lbl">My Contacts</string>
+    <string name="profile_picture_desc">Profile picture</string>
+    <string name="empty_contact_list_msg"><![CDATA[It\'s lonely here!\nTell your friends to get FyredApp & join you]]></string>
+    <string name="fragment_home_lbl">home</string>
+    <string name="refresh_contact_list_msg">Click here to scan your contacts.\nInternet connection is required</string>
+    <string name="block_txt">block</string>
+    <string name="un_block_txt">un block</string>
+
+
+    <!-- MY PROFILE FRAGMENT STRINGS -->
+    <string name="my_profile_fragment_lbl">My Profile</string>
+    <string name="open_gallery_txt">Open Gallery</string>
+    <string name="remove_photo_txt">Remove Photo</string>
+    <string name="user_profile_tip"><![CDATA[You can edit your profile picture here]]></string>
+    <string name="update_txt">Update</string>
+    <string name="save_changes_txt">Save Changes</string>
+
+    <!-- FEEDBACK FRAGMENT STRINGS -->
+    <string name="feedback_fragment_lbl">Send Feedback</string>
+
+    <!--ABOUT APP FRAGMENT STRINGS -->
+    <string name="about_app_fragment_lbl">About FyredApp</string>
+    <string name="feedback_title"><![CDATA[Thank you for using FyredApp & taking a moment to share your experience with us  :)]]></string>
+    <string name="my_feeback_hint">my feedback…</string>
+    <string name="send_feedback_txt">Send feedback</string>
+    <string name="feedback_sent_successful">Your feedback has been sent successfully</string>
+    <string name="feedback_sending_failed"><![CDATA[Failed to send your feedback, please check your internet & try again]]></string>
+    <string name="review_terms_prompt"><![CDATA[Click To Review Our Terms & Conditions]]></string>
+    <string name="review_privacy_policy_prompt">Click To Review Our Privacy Policy</string>
+
+    <!-- RECORD MOMENT FRAGMENT STRINGS -->
+    <string name="capture_e_moment">Capture \'e moment</string>
+    <string name="share_moments">Share Moments</string>
+    <string name="cancel_txt">Cancel</string>
+    <string name="delete_txt">Delete</string>
+    <string name="add_caption_txt">Add caption</string>
+    <string name="done_txt">Update</string>
+    <string name="shared_moment_desc">shared_moment</string>
+    <string name="moment_shared">moment shared</string>
+    <string name="share_moments_prompt">share what\'s up @your location.\nWe recommend a video &amp; a selfie.\nyour moments are automatically deleted after 6 hours</string>
+    <string name="cancel_sharing_moment_intent">cancel &amp; refresh my location</string>
+    <string name="continue_sharing_moment_intent">continue using current set location</string>
+    <string name="ok">OK</string>
+    <string name="take_photo_txt">Take Photo</string>
+    <string name="record_video_txt">Record Video</string>
+    <string name="open_photo_gallery_txt">Open Gallery</string>
+    <string name="video_indicator_iv_desc">play video</string>
+    <string name="sharing_e_moment_wait">sharing, please wait…</string>
+    <string name="max_moments_reached">Looks lit! Now tap share icon at the top</string>
+    <string name="failed_to_set_photo_path">Oops, something went wrong! Please use Photo Gallery</string>
+    <string name="photo_capture_failed">An error occurred! Failed to capture photo</string>
+    <string name="send_img_fragment_lbl">share photo</string>
+    <string name="captured_photo_iv_desc">Captured Photo</string>
+    <string name="access_gallery_prompt">Photos</string>
+    <string name="got_it">Got It</string>
+
+
+    <!-- HOTSPOT FRAGMENT-->
+    <string name="directions_txt">take me there</string>
+    <string name="no_google_maps_handler_app">No google maps app was found!</string>
+    <string name="profile_update_successful">Your profile has been updated</string>
+    <string name="profile_update_failed"><![CDATA[Failed to update your profile. Please check your internet connection  & try again]]></string>
+
+
+</resources>

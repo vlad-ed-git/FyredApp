@@ -1,0 +1,42 @@
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@drawable/splash_screen_bg</item>
+    </style>
+
+    <style name="AppToolBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:fontFamily">@font/lobster_two</item>
+        <item name="android:textColor">@color/colorPrimary</item> <!-- drop down menu text-->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item> <!-- e.g the dots -->
+        <item name="android:actionMenuTextColor">@android:color/white</item>
+        <item name="android:colorBackground">@color/colorWhitish</item>
+    </style>
+
+    <style name="ThemeSpinner">
+        <!-- Color when pressed -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Default color for the dropdown arrow and line -->
+        <item name="colorControlNormal">@color/colorSecondary</item>
+    </style>
+
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:letterSpacing">.1</item>
+        <item name="android:textSize">@dimen/txt_std</item>
+        <item name="android:fontFamily">@font/dosis_medium</item>
+        <item name="android:textColor">@color/colorWhitish</item>
+        <item name="android:padding">@dimen/padding_std</item>
+    </style>
+
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:textSize">@dimen/txt_std</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:fontFamily">@font/dosis_medium</item>
+        <item name="android:textColor">@color/colorWhitish</item>
+        <item name="android:padding">@dimen/padding_std</item>
+    </style>
+
+</resources>
