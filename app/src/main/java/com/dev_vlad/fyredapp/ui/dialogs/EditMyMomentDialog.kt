@@ -47,7 +47,7 @@ class EditMyMomentDialog(private val recordedMoment: RecordedMoment) : DialogFra
 
             val momentPhotoIv = view.findViewById<ImageView>(R.id.moment_photo_iv)
             momentVideoVV = view.findViewById(R.id.moment_vid_pv)
-            if (recordedMoment.isImage) {
+            if (recordedMoment.image) {
                 //show photo
                 momentVideoVV.visibility = View.GONE
                 momentPhotoIv.visibility = View.VISIBLE
@@ -66,7 +66,6 @@ class EditMyMomentDialog(private val recordedMoment: RecordedMoment) : DialogFra
 
             view.findViewById<TextView>(R.id.delete_tv).setOnClickListener {
                 listener.onDeleteMomentClicked(recordedMoment)
-                dismiss()
             }
 
             //set listeners
@@ -80,13 +79,11 @@ class EditMyMomentDialog(private val recordedMoment: RecordedMoment) : DialogFra
                 //set the new caption
                 val newMoment = RecordedMoment(
                     mediaUriString = recordedMoment.mediaUriString,
-                    isImage = recordedMoment.isImage
+                    image = recordedMoment.image
                 )
                 newMoment.caption = captionTv.text.toString()
                 listener.onEditMoment(oldMoment = recordedMoment, newMoment = newMoment)
 
-                //dismiss
-                dismiss()
             }
 
             builder.create()

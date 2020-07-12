@@ -192,7 +192,7 @@ object UserRepo {
     fun uploadUserFeedback(rating: Float, feedback: String, callback: AsyncResultListener) {
         Log.d(LOG_TAG, "uploading user feedback")
         val userFeedback =
-            UserFeedback(userRating = rating, userFeedback = feedback, isPositive = (rating > 3))
+            UserFeedback(userRating = rating, userFeedback = feedback, positive = (rating > 3))
         FirebaseFirestore.getInstance().collection(USER_FEEDBACK_COLLECTION_NAME)
             .document(getUserId())
             .set(userFeedback)

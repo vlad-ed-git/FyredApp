@@ -19,6 +19,7 @@ import com.dev_vlad.fyredapp.databinding.FragmentHotSpotBinding
 import com.dev_vlad.fyredapp.media.CustomVideoPlayer
 import com.dev_vlad.fyredapp.models.RecordedMoment
 import com.dev_vlad.fyredapp.models.UserMomentWrapper
+import com.dev_vlad.fyredapp.repositories.UserRepo
 import com.dev_vlad.fyredapp.utils.showSnackBarToUser
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.material.tabs.TabLayoutMediator
@@ -50,7 +51,13 @@ class HotSpotFragment : Fragment() {
         }
         recorderAndMoment?.let { recorderNMoment ->
             //initialize views
-            binding.contactNameTv.text = recorderNMoment.recordedBy.phoneBookName
+            if (recorderNMoment.recordedBy.userId == UserRepo.getUserId()) {
+                binding.contactNameTv.text = getString(R.string.my_name)
+                binding.goToLocationTv.text = getString(R.string.directions_for_me_txt)
+            } else {
+                binding.contactNameTv.text = recorderNMoment.recordedBy.phoneBookName
+                binding.goToLocationTv.text = getString(R.string.directions_txt)
+            }
 
             //prepare directions intent
             //res : https://developers.google.com/maps/documentation/urls/android-intents#kotlin
@@ -146,8 +153,9 @@ class MomentFragment : Fragment() {
         }
 
 
-        if (moment.isImage) {
+        if (moment.image) {
             //show image
+            playerView.visibility = View.GONE
             imgView.visibility = View.VISIBLE
             Glide.with(requireContext())
                 .load(moment.mediaUriString)
@@ -155,6 +163,7 @@ class MomentFragment : Fragment() {
                 .into(imgView)
         } else {
             //play video
+            imgView.visibility = View.GONE
             playerView.visibility = View.VISIBLE
             videoPlayer =
                 CustomVideoPlayer(momentVideoPv = playerView, videoUriStr = moment.mediaUriString)

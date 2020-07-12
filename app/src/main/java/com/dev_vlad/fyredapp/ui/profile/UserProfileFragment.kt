@@ -129,17 +129,19 @@ class UserProfileFragment : Fragment(), UpdateProfilePhotoDialog.UpdateProfilePh
         Glide.with(requireContext())
             .load(userProfileViewModel.newPhotoUriAsStr)
             .placeholder(R.drawable.ic_empty_profile_pic)
-            .error(R.drawable.ic_empty_profile_pic)
+            .error(R.drawable.ic_add_profile_pic)
             .apply(RequestOptions.circleCropTransform())
             .into(binding.profilePicIv)
     }
 
     override fun onRemovePhotoClicked() {
+        updatePhotoDialog?.dismiss()
         binding.profilePicIv.setImageResource(R.drawable.ic_add_profile_pic)
         userProfileViewModel.newPhotoUriAsStr = null
     }
 
     override fun onOpenGalleryClicked() {
+        updatePhotoDialog?.dismiss()
         when {
             hasAppPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) -> {
                 picPhotoFromGallery()

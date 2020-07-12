@@ -37,12 +37,10 @@ class UpdateProfilePhotoDialog : DialogFragment() {
 
             view.findViewById<TextView>(R.id.remove_photo_tv).setOnClickListener {
                 listener.onRemovePhotoClicked()
-                dismiss()
             }
 
             view.findViewById<TextView>(R.id.open_gallery_tv).setOnClickListener {
                 listener.onOpenGalleryClicked()
-                dismiss()
             }
 
             builder.create()

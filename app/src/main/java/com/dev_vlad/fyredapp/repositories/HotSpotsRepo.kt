@@ -189,6 +189,7 @@ object HotSpotsRepo {
     fun isHotSpotListenerRegistered(): Boolean = hotSpotsListener != null
 
     fun autoDeleteOldMoments() {
+        Log.d(LOG_TAG, "autoDeleteOldMoments()")
         //deletes old moments
         val calendar: Calendar = Calendar.getInstance()
         calendar.add(Calendar.HOUR_OF_DAY, -(MAX_HOURS_BEFORE_MOMENT_EXPIRES))

@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         //setContentView
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         navController = findNavController(R.id.myNavHostFragment)
@@ -63,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)

@@ -8,5 +8,5 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 data class UserFeedback(
     val userRating: Float,
     val userFeedback: String,
-    val isPositive: Boolean
+    val positive: Boolean
 )

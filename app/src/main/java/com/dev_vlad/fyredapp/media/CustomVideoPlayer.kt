@@ -3,10 +3,8 @@ package com.dev_vlad.fyredapp.media
 import android.net.Uri
 import android.widget.Toast
 import com.dev_vlad.fyredapp.R
-import com.google.android.exoplayer2.ExoPlaybackException
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.dev_vlad.fyredapp.utils.AppConstants
+import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
@@ -67,7 +65,21 @@ class CustomVideoPlayer(
     /******************VIDEO PLAYING ********************/
     private fun initializePlayer() {
         val context = momentVideoPv.context
-        exoPlayer = SimpleExoPlayer.Builder(context).build()
+        val builder = DefaultLoadControl.Builder()
+        /* Milliseconds of media data buffered before playback starts or resumes. */
+        val minBufferToPlayMs = 1000
+        val maxBufferMs = AppConstants.MAX_VIDEO_SECONDS * 1000
+        val minBufferMs = (maxBufferMs / 2)
+        builder.setBufferDurationsMs(
+            minBufferMs,
+            maxBufferMs,
+            minBufferToPlayMs,
+            minBufferMs
+        )
+        val loadControl = builder.createDefaultLoadControl()
+        exoPlayer = SimpleExoPlayer.Builder(context)
+            .setLoadControl(loadControl)
+            .build()
         exoPlayer?.let { nonNullExoPlayer ->
             nonNullExoPlayer.repeatMode = Player.REPEAT_MODE_ONE
             momentVideoPv.player = nonNullExoPlayer
@@ -85,6 +97,7 @@ class CustomVideoPlayer(
                     DefaultExtractorsFactory()
                 )
                 .createMediaSource(Uri.parse(videoUriStr))
+
 
             nonNullExoPlayer.prepare(mediaSource!!, true, false)
             nonNullExoPlayer.addListener(playerListener)

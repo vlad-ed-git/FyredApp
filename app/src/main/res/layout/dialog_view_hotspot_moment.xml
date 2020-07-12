@@ -23,13 +23,14 @@
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/moment_vid_pv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         android:maxHeight="@dimen/max_preview_height"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/max_preview_height"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/thumbnail_iv"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:buffered_color="@color/colorSecondary"
+        app:show_buffering="when_playing" />
 
     <Button
         android:id="@+id/view_moments_btn"

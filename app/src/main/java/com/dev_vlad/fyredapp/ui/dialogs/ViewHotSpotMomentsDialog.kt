@@ -1,9 +1,11 @@
 package com.dev_vlad.fyredapp.ui.dialogs
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,22 +57,23 @@ class ViewHotSpotMomentsDialog(
                 dismiss()
             }
 
-            val momentVidVv = view.findViewById<PlayerView>(R.id.moment_vid_pv)
+            val momentVidPv = view.findViewById<PlayerView>(R.id.moment_vid_pv)
             val thumbnail = view.findViewById<ImageView>(R.id.thumbnail_iv)
 
             //is there is a photo or video thumbnail to display
             val firstMoment = userMomentWrapper.recordedMoments[0]
-            if (firstMoment.isImage) {
-                momentVidVv.visibility = View.GONE
+            if (firstMoment.image) {
+                momentVidPv.visibility = View.GONE
                 thumbnail.visibility = View.VISIBLE
                 Glide.with(view.context)
                     .load(firstMoment.mediaUriString)
                     .placeholder(R.drawable.ic_img_loading_placeholder)
                     .into(thumbnail)
             } else {
+                Log.d("ViewHotSpot", "from fyredApp | playing video")
                 thumbnail.visibility = View.GONE
-                momentVidVv.visibility = View.VISIBLE
-                videoPlayer = CustomVideoPlayer(momentVidVv, firstMoment.mediaUriString)
+                momentVidPv.visibility = View.VISIBLE
+                videoPlayer = CustomVideoPlayer(momentVidPv, firstMoment.mediaUriString)
             }
 
             /*TODO set caption
@@ -83,13 +86,15 @@ class ViewHotSpotMomentsDialog(
             }*/
             view.findViewById<Button>(R.id.view_moments_btn).setOnClickListener {
                 listener.onSeeMoreClicked(userMomentWrapper)
-                //dismiss
-                dismiss()
             }
 
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        videoPlayer?.releasePlayer()
+    }
 
 }

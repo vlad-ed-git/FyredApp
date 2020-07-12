@@ -503,6 +503,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     override fun onContinueSharingClicked() {
         Log.i(LOG_TAG, "from fyredApp | continue sharing clicked")
+        shareMomentConfirmDialog.dismiss()
         val action =
             HomeFragmentDirections.actionHomeFragmentToRecordMomentFragment(homeViewModel.userLastKnownLatLng)
         findNavController(this).navigate(action)
@@ -656,6 +657,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     /*** NAVIGATE AWAY **/
     override fun onSeeMoreClicked(userMomentWrapper: UserMomentWrapper) {
+        viewHotSpotMomentsDialog?.dismiss()
         Log.d(LOG_TAG, "from fyredApp | onSeeMoreClicked")
         val action =
             HomeFragmentDirections.actionHomeFragmentToHotSpotFragment(userMomentWrapper)

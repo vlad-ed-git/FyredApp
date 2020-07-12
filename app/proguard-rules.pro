@@ -27,6 +27,10 @@
   **[] $VALUES;
   public *;
 }
+-keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder.InternalRewinder {
+  *** rewind();
+}
+
 -dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder
 
 -keepnames class * extends android.os.Parcelable

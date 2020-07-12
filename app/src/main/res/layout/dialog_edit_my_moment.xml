@@ -39,7 +39,9 @@
         app:layout_constraintTop_toBottomOf="@id/cancel_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:buffered_color="@color/colorSecondary"
+        app:show_buffering="when_playing" />
 
     <ImageView
         android:id="@+id/moment_photo_iv"

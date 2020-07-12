@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">FyredApp</string>
-    <string name="app_version_txt">Version 0.1</string>
+    <string name="app_version_txt">Version 0.1</string> <!-- on update, update in gradle as well -->
     <string name="app_logo_desc">FyredApp Logo</string>
     <string name="app_copyright_txt">2020 FyredApp LLC.</string>
 
@@ -77,14 +77,15 @@
 
     <!-- FEEDBACK FRAGMENT STRINGS -->
     <string name="feedback_fragment_lbl">Send Feedback</string>
-
-    <!--ABOUT APP FRAGMENT STRINGS -->
-    <string name="about_app_fragment_lbl">About FyredApp</string>
-    <string name="feedback_title"><![CDATA[Thank you for using FyredApp & taking a moment to share your experience with us  :)]]></string>
+    <string name="feedback_title"><![CDATA[Thank you for using FyredApp & taking a moment to share your experience with us :) .*You can suggest features as well]]></string>
     <string name="my_feeback_hint">my feedback…</string>
     <string name="send_feedback_txt">Send feedback</string>
     <string name="feedback_sent_successful">Your feedback has been sent successfully</string>
     <string name="feedback_sending_failed"><![CDATA[Failed to send your feedback, please check your internet & try again]]></string>
+
+
+    <!--ABOUT APP FRAGMENT STRINGS -->
+    <string name="about_app_fragment_lbl">About FyredApp</string>
     <string name="review_terms_prompt"><![CDATA[Click To Review Our Terms & Conditions]]></string>
     <string name="review_privacy_policy_prompt">Click To Review Our Privacy Policy</string>
 
@@ -120,6 +121,8 @@
     <string name="no_google_maps_handler_app">No google maps app was found!</string>
     <string name="profile_update_successful">Your profile has been updated</string>
     <string name="profile_update_failed"><![CDATA[Failed to update your profile. Please check your internet connection  & try again]]></string>
+    <string name="my_name">me</string>
+    <string name="directions_for_me_txt">return back there</string>
 
 
 </resources>

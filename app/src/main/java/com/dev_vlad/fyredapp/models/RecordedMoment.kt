@@ -9,7 +9,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 @Keep
 data class RecordedMoment(
     var mediaUriString: String,
-    val isImage: Boolean = true,
+    val image: Boolean,
     var caption: String = ""
 ) : Parcelable {
 
@@ -20,7 +20,7 @@ data class RecordedMoment(
     )
 
     //required empty constructor
-    constructor() : this("")
+    constructor() : this("", true)
 
     fun isSameAs(other: Any?): Boolean {
         return other is RecordedMoment && other.mediaUriString == mediaUriString
@@ -32,7 +32,7 @@ data class RecordedMoment(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(mediaUriString)
-        parcel.writeByte(if (isImage) 1 else 0)
+        parcel.writeByte(if (image) 1 else 0)
         parcel.writeString(caption)
     }
 

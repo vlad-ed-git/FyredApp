@@ -29,6 +29,7 @@ import com.dev_vlad.fyredapp.ui.record.RecordMomentViewModel.UploadingState.*
 import com.dev_vlad.fyredapp.utils.AppConstants.MAX_MOMENTS
 import com.dev_vlad.fyredapp.utils.AppConstants.MAX_VIDEO_SECONDS
 import com.dev_vlad.fyredapp.utils.AppConstants.PERMISSION_REQUEST_CAMERA
+import com.dev_vlad.fyredapp.utils.AppConstants.PERMISSION_REQUEST_CAMERA_FOR_VIDEO
 import com.dev_vlad.fyredapp.utils.AppConstants.PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE
 import com.dev_vlad.fyredapp.utils.hasAppPermission
 import com.dev_vlad.fyredapp.utils.requestAppPermissions
@@ -222,7 +223,7 @@ class RecordMomentFragment : Fragment() {
                     actionToTake = {
                         requestAppPermissions(
                             permissionsArr = arrayOf(Manifest.permission.CAMERA),
-                            requestCode = PERMISSION_REQUEST_CAMERA
+                            requestCode = PERMISSION_REQUEST_CAMERA_FOR_VIDEO
                         )
                     }
                 )
@@ -231,7 +232,7 @@ class RecordMomentFragment : Fragment() {
             else -> {
                 requestAppPermissions(
                     permissionsArr = arrayOf(Manifest.permission.CAMERA),
-                    requestCode = PERMISSION_REQUEST_CAMERA
+                    requestCode = PERMISSION_REQUEST_CAMERA_FOR_VIDEO
                 )
             }
         }
@@ -359,10 +360,12 @@ class RecordMomentFragment : Fragment() {
 
                 override fun onDeleteMomentClicked(removedMoment: RecordedMoment) {
                     recordViewModel.removeMoment(removedMoment)
+                    it.dismiss()
                 }
 
                 override fun onEditMoment(oldMoment: RecordedMoment, newMoment: RecordedMoment) {
                     recordViewModel.modifyMoment(oldMoment = oldMoment, newMoment = newMoment)
+                    it.dismiss()
                 }
             }
 
@@ -394,7 +397,7 @@ class RecordMomentFragment : Fragment() {
                                     )
                                     val moment = RecordedMoment(
                                         mediaUriString = item.uri.toString(),
-                                        isImage = true
+                                        image = true
                                     )
                                     recordViewModel.addMoment(moment)
                                 }
@@ -405,7 +408,7 @@ class RecordMomentFragment : Fragment() {
                             Log.d(LOG_TAG, "from fyredApp | on act result, adding 1 gallery pic")
                             val moment = RecordedMoment(
                                 mediaUriString = data.data.toString(),
-                                isImage = true
+                                image = true
                             )
                             recordViewModel.addMoment(moment)
                         }
@@ -422,7 +425,7 @@ class RecordMomentFragment : Fragment() {
                     Log.d(LOG_TAG, "from fyredApp | on act result, adding 1 video")
                     val moment = RecordedMoment(
                         mediaUriString = data.data.toString(),
-                        isImage = false
+                        image = false
                     )
                     recordViewModel.addMoment(moment)
                 }
@@ -440,7 +443,7 @@ class RecordMomentFragment : Fragment() {
                     Log.d(LOG_TAG, "from fyredApp | on act result, adding 1 captured photo")
                     val moment = RecordedMoment(
                         mediaUriString = fullImgUri.toString(),
-                        isImage = true
+                        image = true
                     )
                     recordViewModel.addMoment(moment)
                 } else {
@@ -472,22 +475,35 @@ class RecordMomentFragment : Fragment() {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
-        if (requestCode == PERMISSION_REQUEST_CAMERA) {
-            // Request for camera permission.
-            if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                takePhoto()
-            } else {
-                //Camera Permission request was denied
-                permissionJustDenied = R.string.camera_access_denied
+        when (requestCode) {
+            PERMISSION_REQUEST_CAMERA -> {
+                // Request for camera permission.
+                if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    takePhoto()
+                } else {
+                    //Camera Permission request was denied
+                    permissionJustDenied = R.string.camera_access_denied
 
+                }
             }
-        } else if (requestCode == PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE) {
-            // Request for storage permission
-            if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                pickPhotoFromGallery()
-            } else {
-                //WRITE STORAGE Permission request was denied
-                permissionJustDenied = R.string.gallery_access_denied
+            PERMISSION_REQUEST_CAMERA_FOR_VIDEO -> {
+                // Request for camera permission.
+                if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    recordVideo()
+                } else {
+                    //Camera Permission request was denied
+                    permissionJustDenied = R.string.camera_access_denied
+
+                }
+            }
+            PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE -> {
+                // Request for storage permission
+                if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    pickPhotoFromGallery()
+                } else {
+                    //WRITE STORAGE Permission request was denied
+                    permissionJustDenied = R.string.gallery_access_denied
+                }
             }
         }
 

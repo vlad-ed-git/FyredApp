@@ -5,6 +5,7 @@ object AppConstants {
     const val PERMISSION_REQUEST_READ_CONTACTS = 12
     const val PERMISSION_REQUEST_FINE_LOCATION = 11
     const val PERMISSION_REQUEST_CAMERA = 19
+    const val PERMISSION_REQUEST_CAMERA_FOR_VIDEO = 14
     const val PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE = 93
 
     //shared preferences keys

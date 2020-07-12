@@ -36,8 +36,6 @@ class ShareMomentConfirmDialog : DialogFragment() {
 
             view.findViewById<Button>(R.id.share_btn).setOnClickListener {
                 listener.onContinueSharingClicked()
-                //dismiss
-                dismiss()
             }
 
             builder.create()

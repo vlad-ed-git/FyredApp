@@ -48,7 +48,7 @@ object UserMomentsStorageRepo {
 
     private fun recursivelyUploadFiles() {
         currentlyUploadingMoment = filesBeingUploaded[currentlyUploadingFileNo]
-        if (currentlyUploadingMoment.isImage) {
+        if (currentlyUploadingMoment.image) {
             val fileToUpload = currentlyUploadingMoment.mediaUriString
             CoroutineScope(Dispatchers.IO).launch {
                 val byteArray = ImageProcessing.scaleAndResizeImageAsync(fileToUpload, glideRef)

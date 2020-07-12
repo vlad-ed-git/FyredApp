@@ -63,7 +63,7 @@ class RecordedMomentsAdapter(private val clickListener: UserMomentClickListener)
             clickListener: UserMomentClickListener
         ) {
             //is there is a photo or video thumbnail to display
-            val momentThumbnail = if (moment.isImage) {
+            val momentThumbnail = if (moment.image) {
                 binding.videoIndicatorIv.visibility = View.GONE
                 moment.mediaUriString
             } else {
