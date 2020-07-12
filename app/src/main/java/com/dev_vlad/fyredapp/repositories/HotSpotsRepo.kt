@@ -1,6 +1,5 @@
 package com.dev_vlad.fyredapp.repositories
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dev_vlad.fyredapp.models.UserMomentWrapper
@@ -8,6 +7,7 @@ import com.dev_vlad.fyredapp.room.dao.MyContactsDao
 import com.dev_vlad.fyredapp.room.entities.MyContacts
 import com.dev_vlad.fyredapp.utils.AppConstants.MAX_HOURS_BEFORE_MOMENT_EXPIRES
 import com.dev_vlad.fyredapp.utils.AppConstants.USERS_MOMENTS_COLLECTION_NAME
+import com.dev_vlad.fyredapp.utils.MyLog
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
@@ -32,7 +32,7 @@ object HotSpotsRepo {
     fun getObservableMySpot(): LiveData<UserMomentWrapper> = mutableLiveMySpot
 
     private fun clearHotSpotsData() {
-        Log.d(LOG_TAG, "from fyredApp | clearHotSpotsData()")
+        MyLog.d(LOG_TAG, "from fyredApp | clearHotSpotsData()")
         hotSpots.clear()
         mutableLiveHotSpots.value = hotSpots
         mutableLiveMySpot.value = null
@@ -40,11 +40,11 @@ object HotSpotsRepo {
 
     fun listenForMomentsICareAbout(myContactsDao: MyContactsDao) {
         if (!UserRepo.userIsLoggedIn()) {
-            Log.e(LOG_TAG, "from fyredApp | listenForMomentsICareAbout() user is logged off")
+            MyLog.e(LOG_TAG, "from fyredApp | listenForMomentsICareAbout() user is logged off")
             return
         }
 
-        Log.d(LOG_TAG, "from fyredApp | listenForMomentsICareAbout() called")
+        MyLog.d(LOG_TAG, "from fyredApp | listenForMomentsICareAbout() called")
         clearHotSpotsData()
 
         this.myContactsDao = myContactsDao
@@ -52,14 +52,14 @@ object HotSpotsRepo {
             .whereArrayContains("sharedWith", UserRepo.getMyNumber())
         hotSpotsListener = query.addSnapshotListener { snapshots, e ->
             if (e != null) {
-                Log.e(LOG_TAG, "from fyredApp | listenForMomentsICareAbout() - error", e)
+                MyLog.e(LOG_TAG, "from fyredApp | listenForMomentsICareAbout() - error", e)
                 return@addSnapshotListener
             }
 
             for (dc in snapshots!!.documentChanges) {
                 when (dc.type) {
                     DocumentChange.Type.ADDED -> {
-                        Log.d(
+                        MyLog.d(
                             LOG_TAG,
                             "from fyredApp | listenForMomentsICareAbout()  - found added"
                         )
@@ -68,13 +68,13 @@ object HotSpotsRepo {
                         updateContactsProfileUri(myContactsDao, hotSpot)
                     }
                     DocumentChange.Type.MODIFIED -> {
-                        Log.d(LOG_TAG, "from fyredApp | listenForMomentsICareAbout()  - modified")
+                        MyLog.d(LOG_TAG, "from fyredApp | listenForMomentsICareAbout()  - modified")
                         val hotSpot = dc.document.toObject(UserMomentWrapper::class.java)
                         modifyHotSpots(hotSpot)
                     }
 
                     DocumentChange.Type.REMOVED -> {
-                        Log.d(LOG_TAG, "from fyredApp | listenForMomentsICareAbout()  - removed")
+                        MyLog.d(LOG_TAG, "from fyredApp | listenForMomentsICareAbout()  - removed")
                         val hotSpot = dc.document.toObject(UserMomentWrapper::class.java)
                         removeFromHotSpots(hotSpot)
                     }
@@ -97,7 +97,7 @@ object HotSpotsRepo {
                     myContactsDao.update(existingContact)
                 }
             } catch (exc: Exception) {
-                Log.d(
+                MyLog.d(
                     LOG_TAG,
                     "from fyredApp updateContactsProfileUri() failed ${exc.message}",
                     exc.cause
@@ -107,7 +107,7 @@ object HotSpotsRepo {
     }
 
     private fun notifyLiveHotSpotsObserver() {
-        Log.d(LOG_TAG, "from fyredApp |  notifyLiveHotSpotsObserver() - notified")
+        MyLog.d(LOG_TAG, "from fyredApp |  notifyLiveHotSpotsObserver() - notified")
         val updatedHotSpots: ArrayList<UserMomentWrapper> = ArrayList()
         updatedHotSpots.addAll(hotSpots)
         mutableLiveHotSpots.value = updatedHotSpots
@@ -116,11 +116,11 @@ object HotSpotsRepo {
 
     private fun addToHotSpots(hotspot: UserMomentWrapper) {
         if (hotspot.recordedBy.userId == UserRepo.getUserId()) {
-            Log.d(LOG_TAG, "from fyredApp | my hotspot set")
+            MyLog.d(LOG_TAG, "from fyredApp | my hotspot set")
             //the spot is where user is at
             mutableLiveMySpot.value = hotspot
         } else {
-            Log.d(LOG_TAG, "from fyredApp | new hotspot added")
+            MyLog.d(LOG_TAG, "from fyredApp | new hotspot added")
             addContactInfoNInsertHotSpot(hotspot)
         }
     }
@@ -128,12 +128,12 @@ object HotSpotsRepo {
     private fun removeFromHotSpots(hotspot: UserMomentWrapper) {
 
         if (hotspot.recordedBy.userId == UserRepo.getUserId()) {
-            Log.d(LOG_TAG, "from fyredApp | my hotspot has been removed")
+            MyLog.d(LOG_TAG, "from fyredApp | my hotspot has been removed")
             mutableLiveMySpot.value = hotspot
         } else {
             val hotSpotToRemove = hotSpots.filter { it.isSameAs(hotspot) }
             if (hotSpotToRemove.isNotEmpty()) {
-                Log.d(LOG_TAG, "from fyredApp | hotspot removed")
+                MyLog.d(LOG_TAG, "from fyredApp | hotspot removed")
                 hotSpots.remove(hotSpotToRemove[0])
                 notifyLiveHotSpotsObserver()
             }
@@ -143,14 +143,14 @@ object HotSpotsRepo {
     private fun modifyHotSpots(newHotSpot: UserMomentWrapper) {
 
         if (newHotSpot.recordedBy.userId == UserRepo.getUserId()) {
-            Log.d(LOG_TAG, "from fyredApp | my hotspot modified")
+            MyLog.d(LOG_TAG, "from fyredApp | my hotspot modified")
             mutableLiveMySpot.value = newHotSpot
 
         } else {
 
             val spotToModify = hotSpots.filter { it.isSameAs(newHotSpot) }
             if (spotToModify.isNotEmpty()) {
-                Log.d(LOG_TAG, "from fyredApp | hotspot modified")
+                MyLog.d(LOG_TAG, "from fyredApp | hotspot modified")
                 hotSpots.remove(spotToModify[0])
                 addContactInfoNInsertHotSpot(newHotSpot)
 
@@ -160,7 +160,7 @@ object HotSpotsRepo {
 
     private fun addContactInfoNInsertHotSpot(hotspot: UserMomentWrapper) {
         if (!::myContactsDao.isInitialized) {
-            Log.e(LOG_TAG, "addHotSpotInfo myContactsDao is not initialized")
+            MyLog.e(LOG_TAG, "addHotSpotInfo myContactsDao is not initialized")
         }
 
         val recordersPhoneNumber = hotspot.recordedBy.phoneNumber!!
@@ -170,7 +170,7 @@ object HotSpotsRepo {
                 contacts?.let { unBlockedContact ->
                     if (unBlockedContact.canViewMyMoments) {
                         hotspot.recordedBy.phoneBookName = unBlockedContact.phoneBookSavedName
-                        Log.d(LOG_TAG, "addHotSpotInfo added")
+                        MyLog.d(LOG_TAG, "addHotSpotInfo added")
                         hotSpots.add(hotspot)
                         notifyLiveHotSpotsObserver()
                     }
@@ -181,7 +181,7 @@ object HotSpotsRepo {
     }
 
     fun unRegisterHotSpotListener() {
-        Log.d(LOG_TAG, "from fyredApp | listenToMomentsICareAbout() - listener cleared")
+        MyLog.d(LOG_TAG, "from fyredApp | listenToMomentsICareAbout() - listener cleared")
         hotSpotsListener?.remove()
         hotSpotsListener = null
     }
@@ -189,7 +189,7 @@ object HotSpotsRepo {
     fun isHotSpotListenerRegistered(): Boolean = hotSpotsListener != null
 
     fun autoDeleteOldMoments() {
-        Log.d(LOG_TAG, "autoDeleteOldMoments()")
+        MyLog.d(LOG_TAG, "autoDeleteOldMoments()")
         //deletes old moments
         val calendar: Calendar = Calendar.getInstance()
         calendar.add(Calendar.HOUR_OF_DAY, -(MAX_HOURS_BEFORE_MOMENT_EXPIRES))
@@ -201,7 +201,7 @@ object HotSpotsRepo {
             if (hotspot.sharedOnDate!! > date) {
                 return
             } else {
-                Log.d(LOG_TAG, "auto deleting old moment from")
+                MyLog.d(LOG_TAG, "auto deleting old moment from")
 
 
                 //delete moment files
@@ -209,11 +209,11 @@ object HotSpotsRepo {
                     .document(hotspot.recordedBy.userId!!)
                     .delete()
                     .addOnSuccessListener {
-                        Log.d(LOG_TAG, "Deleted old moment info successfully")
+                        MyLog.d(LOG_TAG, "Deleted old moment info successfully")
                         //delete moments
                         UserMomentsStorageRepo.userMomentsFolder.delete()
                             .addOnFailureListener {
-                                Log.d(
+                                MyLog.d(
                                     LOG_TAG,
                                     "Failed to Delete old moment files ${it.message}",
                                     it.cause
@@ -222,7 +222,7 @@ object HotSpotsRepo {
 
                     }
                     .addOnFailureListener {
-                        Log.d(
+                        MyLog.d(
                             LOG_TAG,
                             "Failed to Delete old moment info ${it.message}",
                             it.cause

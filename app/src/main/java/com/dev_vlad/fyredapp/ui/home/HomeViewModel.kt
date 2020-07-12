@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.graphics.Bitmap
 import android.location.Location
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
@@ -15,6 +14,7 @@ import com.dev_vlad.fyredapp.repositories.HotSpotsRepo
 import com.dev_vlad.fyredapp.room.FyredAppLocalDb
 import com.dev_vlad.fyredapp.room.dao.MyContactsDao
 import com.dev_vlad.fyredapp.utils.ImageProcessing
+import com.dev_vlad.fyredapp.utils.MyLog
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
@@ -81,7 +81,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun setUserLastKnownLatLng(location: Location) {
-        Log.d(
+        MyLog.d(
             LOG_TAG,
             "from fyredApp | setting last known location @ ${location.latitude} , ${location.longitude}"
         )

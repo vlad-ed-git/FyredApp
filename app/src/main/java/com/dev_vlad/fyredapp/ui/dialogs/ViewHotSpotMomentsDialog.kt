@@ -5,7 +5,6 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.dev_vlad.fyredapp.R
 import com.dev_vlad.fyredapp.media.CustomVideoPlayer
 import com.dev_vlad.fyredapp.models.UserMomentWrapper
+import com.dev_vlad.fyredapp.utils.MyLog
 import com.google.android.exoplayer2.ui.PlayerView
 
 class ViewHotSpotMomentsDialog(
@@ -70,7 +70,7 @@ class ViewHotSpotMomentsDialog(
                     .placeholder(R.drawable.ic_img_loading_placeholder)
                     .into(thumbnail)
             } else {
-                Log.d("ViewHotSpot", "from fyredApp | playing video")
+                MyLog.d("ViewHotSpot", "from fyredApp | playing video")
                 thumbnail.visibility = View.GONE
                 momentVidPv.visibility = View.VISIBLE
                 videoPlayer = CustomVideoPlayer(momentVidPv, firstMoment.mediaUriString)

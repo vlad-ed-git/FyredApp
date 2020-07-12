@@ -2,7 +2,6 @@ package com.dev_vlad.fyredapp.ui.welcome
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,7 @@ import com.dev_vlad.fyredapp.databinding.FragmentLoginBinding
 import com.dev_vlad.fyredapp.ui.welcome.LoginViewModel.LoginProcessStatus.*
 import com.dev_vlad.fyredapp.utils.AppConstants
 import com.dev_vlad.fyredapp.utils.AppConstants.USERS_COUNTRY_CODE_KEY
+import com.dev_vlad.fyredapp.utils.MyLog
 import com.dev_vlad.fyredapp.utils.PhoneNumberValidator.getOnlyCodesList
 import com.dev_vlad.fyredapp.utils.PhoneNumberValidator.getOnlyCountriesList
 import com.dev_vlad.fyredapp.utils.PhoneNumberValidator.getPhoneNumberIfValid
@@ -171,7 +171,7 @@ class LoginFragment : Fragment() {
             loginViewModel.user.signInCountryCode,
             enteredPhone
         )
-        Log.d(
+        MyLog.d(
             LOG_TAG,
             "from fyredApp | onGetVerificationCodeClicked() -> enteredPhone $enteredPhone validatedPhone $validatedPhone"
         )
@@ -247,7 +247,7 @@ class LoginFragment : Fragment() {
                 .signInWithCredential(phoneAuthCredential!!)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
-                        Log.d(LOG_TAG, "from fyredApp | signInUser -> signed in")
+                        MyLog.d(LOG_TAG, "from fyredApp | signInUser -> signed in")
 
                         requireContext().getSharedPreferences(
                             AppConstants.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE
@@ -260,7 +260,7 @@ class LoginFragment : Fragment() {
                         loginViewModel.saveSignedInUserData()
 
                     } else {
-                        Log.e(
+                        MyLog.e(
                             LOG_TAG,
                             "from fyredApp | signInWithCredential Completed: ${task.exception!!.message}",
                             task.exception!!.cause
@@ -273,7 +273,7 @@ class LoginFragment : Fragment() {
                     }
                 }
         } catch (exc: Exception) {
-            Log.d(LOG_TAG, "from fyredApp | signInUser : ${exc.message}", exc.cause)
+            MyLog.d(LOG_TAG, "from fyredApp | signInUser : ${exc.message}", exc.cause)
             hideProgressBars()
             loginViewModel.clearPhoneAuthCredential()
             binding.fragmentLoginContainer.showSnackBarToUser(

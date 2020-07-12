@@ -1,7 +1,6 @@
 package com.dev_vlad.fyredapp.ui.record
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,6 +17,7 @@ import com.dev_vlad.fyredapp.repositories.UserMomentsStorageRepo
 import com.dev_vlad.fyredapp.repositories.UserRepo
 import com.dev_vlad.fyredapp.room.FyredAppLocalDb
 import com.dev_vlad.fyredapp.room.dao.MyContactsDao
+import com.dev_vlad.fyredapp.utils.MyLog
 import kotlinx.coroutines.launch
 
 class RecordMomentViewModel(application: Application) : AndroidViewModel(application) {
@@ -63,7 +63,7 @@ class RecordMomentViewModel(application: Application) : AndroidViewModel(applica
     fun addMoment(newMoment: RecordedMoment) {
         if (recordedMoments.contains(newMoment))
             return //no duplicates allowed
-        Log.d(LOG_TAG, "from fyredApp | added moment")
+        MyLog.d(LOG_TAG, "from fyredApp | added moment")
         recordedMoments.add(newMoment)
         updateLiveMoments()
     }
@@ -77,7 +77,7 @@ class RecordMomentViewModel(application: Application) : AndroidViewModel(applica
 
         }
         if (removeAt != -1) {
-            Log.d(LOG_TAG, "from fyredApp | removed moment")
+            MyLog.d(LOG_TAG, "from fyredApp | removed moment")
             recordedMoments.removeAt(removeAt)
             updateLiveMoments()
         }
@@ -91,7 +91,7 @@ class RecordMomentViewModel(application: Application) : AndroidViewModel(applica
 
         }
         if (modifyAt != -1) {
-            Log.d(LOG_TAG, "from fyredApp | modified moment")
+            MyLog.d(LOG_TAG, "from fyredApp | modified moment")
             recordedMoments[modifyAt] = newMoment
             updateLiveMoments()
         }

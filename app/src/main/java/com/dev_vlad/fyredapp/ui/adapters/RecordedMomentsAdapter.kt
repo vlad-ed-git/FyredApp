@@ -1,6 +1,5 @@
 package com.dev_vlad.fyredapp.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.dev_vlad.fyredapp.R
 import com.dev_vlad.fyredapp.databinding.ListItemMomentBinding
 import com.dev_vlad.fyredapp.models.RecordedMoment
+import com.dev_vlad.fyredapp.utils.MyLog
 
 class RecordedMomentsAdapter(private val clickListener: UserMomentClickListener) :
     ListAdapter<RecordedMoment, RecordedMomentsAdapter.ViewHolder>(UserMomentsDiffCallback()) {
@@ -33,7 +33,7 @@ class RecordedMomentsAdapter(private val clickListener: UserMomentClickListener)
             newItem: RecordedMoment
         ): Boolean {
             val areSame = oldItem.isSameAs(newItem)
-            Log.d(
+            MyLog.d(
                 "RecordedMomentsAdapter",
                 "areItemsSame $areSame, captions ${oldItem.caption} && ${newItem.caption} "
             )
@@ -46,7 +46,7 @@ class RecordedMomentsAdapter(private val clickListener: UserMomentClickListener)
             newItem: RecordedMoment
         ): Boolean {
             val areContentsSame = oldItem.hasSameContentsAs(newItem)
-            Log.d(
+            MyLog.d(
                 "RecordedMomentsAdapter",
                 "areContentsTheSame $areContentsSame, captions ${oldItem.caption} && ${newItem.caption}"
             )

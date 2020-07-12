@@ -1,11 +1,11 @@
 package com.dev_vlad.fyredapp.repositories
 
-import android.util.Log
 import com.dev_vlad.fyredapp.interfaces.AsyncResultListener
 import com.dev_vlad.fyredapp.models.Users
 import com.dev_vlad.fyredapp.room.dao.MyContactsDao
 import com.dev_vlad.fyredapp.room.entities.MyContacts
 import com.dev_vlad.fyredapp.utils.AppConstants
+import com.dev_vlad.fyredapp.utils.MyLog
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
@@ -18,7 +18,7 @@ object MyContactsRepo {
     suspend fun refreshContactsCache(myContactsDao: MyContactsDao) = withContext(IO) {
         myContactsCache.clear()
         myContactsCache.addAll(myContactsDao.getAllContacts())
-        Log.d(
+        MyLog.d(
             LOG_TAG,
             " from fyredApp | refreshContactsCache | cached ${myContactsCache.size} contacts"
         )
@@ -26,7 +26,7 @@ object MyContactsRepo {
 
     suspend fun updateContact(contact: MyContacts, myContactsDao: MyContactsDao) = withContext(IO) {
         myContactsDao.update(contact)
-        Log.d(
+        MyLog.d(
             LOG_TAG,
             " from fyredApp | updateContact updated"
         )
@@ -55,7 +55,7 @@ object MyContactsRepo {
         resultCallback: AsyncResultListener
     ) {
         if (!UserRepo.userIsLoggedIn()) {
-            Log.e(
+            MyLog.e(
                 LOG_TAG,
                 "from fyredApp |  checkIfPhoneContactIsFyredAppUser() user is logged out"
             )
@@ -75,7 +75,7 @@ object MyContactsRepo {
                 resultCallback.onAsyncOpComplete(isSuccessful = true)
             }
             .addOnFailureListener {
-                Log.e(
+                MyLog.e(
                     LOG_TAG,
                     "from fyredApp |  checkIfPhoneContactIsFyredAppUser() ${userPhoneBookContact.phoneNumber} failed ${it.message}",
                     it.cause

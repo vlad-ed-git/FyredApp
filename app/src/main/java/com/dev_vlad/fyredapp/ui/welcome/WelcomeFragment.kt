@@ -1,7 +1,6 @@
 package com.dev_vlad.fyredapp.ui.welcome
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.dev_vlad.fyredapp.R
 import com.dev_vlad.fyredapp.databinding.FragmentWelcomeBinding
+import com.dev_vlad.fyredapp.utils.MyLog
 
 
 class WelcomeFragment : Fragment() {
@@ -42,7 +42,7 @@ class WelcomeFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        Log.d(LOG_TAG, "fyredApp logs: onStop()")
+        MyLog.d(LOG_TAG, "fyredApp logs: onStop()")
         onBackPressedCallback.remove()
     }
 }

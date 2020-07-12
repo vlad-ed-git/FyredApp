@@ -1,7 +1,6 @@
 package com.dev_vlad.fyredapp.ui.welcome
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +8,7 @@ import com.dev_vlad.fyredapp.R
 import com.dev_vlad.fyredapp.interfaces.AsyncResultListener
 import com.dev_vlad.fyredapp.models.Users
 import com.dev_vlad.fyredapp.repositories.UserRepo
+import com.dev_vlad.fyredapp.utils.MyLog
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.AuthCredential
@@ -57,7 +57,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
             // 2 - Auto-retrieval. On some devices Google Play services can automatically
             //     detect the incoming verification SMS and perform verification without
             //     user action.
-            Log.d(LOG_TAG, "from fyredApp | onVerificationCompleted:$credential")
+            MyLog.d(LOG_TAG, "from fyredApp | onVerificationCompleted:$credential")
             credentials = credential
             loginProcessStatus.value =
                 LoginProcessStatus.VERIFICATION_CODE_AUTO_VERIFIED
@@ -66,7 +66,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         override fun onVerificationFailed(e: FirebaseException) {
             // This callback is invoked in an invalid request for verification is made,
             // for instance if the the phone number format is not valid.
-            Log.e(LOG_TAG, "from fyredApp | onVerificationFailed ${e.message}", e.cause)
+            MyLog.e(LOG_TAG, "from fyredApp | onVerificationFailed ${e.message}", e.cause)
 
             errMessageRes = when (e) {
                 is FirebaseTooManyRequestsException -> {
@@ -90,7 +90,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
             // The SMS verification code has been sent to the provided phone number, we
             // now need to ask the user to enter the code and then construct a credential
             // by combining the code with a verification ID.
-            Log.d(LOG_TAG, "from fyredApp | onCodeSent: $verificationId")
+            MyLog.d(LOG_TAG, "from fyredApp | onCodeSent: $verificationId")
 
             // Save verification ID and resending token so we can use them later
             storedVerificationId = verificationId

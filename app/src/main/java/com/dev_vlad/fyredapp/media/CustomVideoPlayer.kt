@@ -4,13 +4,13 @@ import android.net.Uri
 import android.widget.Toast
 import com.dev_vlad.fyredapp.R
 import com.dev_vlad.fyredapp.utils.AppConstants
+import com.dev_vlad.fyredapp.utils.MyLog
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
-import com.google.android.exoplayer2.util.Log
 import com.google.android.exoplayer2.util.Util
 
 
@@ -33,22 +33,22 @@ class CustomVideoPlayer(
                 ExoPlaybackException.TYPE_SOURCE -> {
                     Toast.makeText(momentVideoPv.context, R.string.err_internet, Toast.LENGTH_LONG)
                         .show()
-                    Log.d(
+                    MyLog.d(
                         LOG_TAG,
                         "from fyredApp | onPlayerError TYPE_SOURCE: ${error.sourceException.message}"
                     )
                 }
-                ExoPlaybackException.TYPE_RENDERER -> Log.d(
+                ExoPlaybackException.TYPE_RENDERER -> MyLog.d(
                     LOG_TAG,
                     "from fyredApp | onPlayerError TYPE_RENDERER: ${error.rendererException.message}"
                 )
-                ExoPlaybackException.TYPE_UNEXPECTED -> Log.d(
+                ExoPlaybackException.TYPE_UNEXPECTED -> MyLog.d(
                     LOG_TAG,
                     "from fyredApp | onPlayerError TYPE_UNEXPECTED: ${error.unexpectedException.message}"
                 )
 
                 else -> {
-                    Log.d(
+                    MyLog.d(
                         LOG_TAG,
                         "from fyredApp | an unknown error occured -> probably no internet"
                     )
@@ -102,7 +102,7 @@ class CustomVideoPlayer(
             nonNullExoPlayer.prepare(mediaSource!!, true, false)
             nonNullExoPlayer.addListener(playerListener)
             nonNullExoPlayer.playWhenReady = true
-            Log.d(LOG_TAG, "from fyredApp | playing video")
+            MyLog.d(LOG_TAG, "from fyredApp | playing video")
         }
     }
 
@@ -115,7 +115,7 @@ class CustomVideoPlayer(
         }
         exoPlayer = null
         mediaSource = null
-        Log.d(LOG_TAG, "from fyredApp | video player released")
+        MyLog.d(LOG_TAG, "from fyredApp | video player released")
     }
 
 

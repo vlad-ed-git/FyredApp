@@ -3,7 +3,6 @@ package com.dev_vlad.fyredapp.ui.contacts
 import android.app.Application
 import android.content.Context
 import android.provider.ContactsContract
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,6 +15,7 @@ import com.dev_vlad.fyredapp.room.FyredAppLocalDb
 import com.dev_vlad.fyredapp.room.dao.MyContactsDao
 import com.dev_vlad.fyredapp.room.entities.MyContacts
 import com.dev_vlad.fyredapp.utils.AppConstants
+import com.dev_vlad.fyredapp.utils.MyLog
 import com.dev_vlad.fyredapp.utils.PhoneNumberValidator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -67,7 +67,7 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
         if (contactListStatus.value != ContactsListStatus.SYNCING_WITH_PHONE_BOOK) {
             contactListStatus.value =
                 ContactsListStatus.SYNCING_WITH_PHONE_BOOK
-            Log.d(
+            MyLog.d(
                 LOG_TAG,
                 "from fyredApp | scanPhoneContacts()"
             )
@@ -158,7 +158,7 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
                             contactCursor.close()
                             phoneBookContactsTmp
                         } else {
-                            Log.e(
+                            MyLog.e(
                                 LOG_TAG,
                                 "from fyredApp | scanPhoneContacts() -> contacts cursor found null"
                             )
@@ -169,14 +169,14 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
                 withContext(Dispatchers.Main) {
                     val foundContacts = phoneBookContacts.await()
                     if (foundContacts == null || foundContacts.size == 0) {
-                        Log.e(
+                        MyLog.e(
                             LOG_TAG,
                             "from fyredApp | scanPhoneContacts() foundContacts is null or empty"
                         )
                         contactListStatus.value =
                             ContactsListStatus.SYNCED_WITH_PHONE_BOOK
                     } else {
-                        Log.d(
+                        MyLog.d(
                             LOG_TAG,
                             "from fyredApp | scanPhoneContacts() found ${foundContacts.size}"
                         )
@@ -191,7 +191,7 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
     private fun checkFoundContactsAgainstFyredAppUsers(foundContacts: ArrayList<MyContacts>) {
         MyContactsRepo.clearCachedContacts()
         phoneBookContactsToSync = foundContacts.size
-        Log.d(
+        MyLog.d(
             LOG_TAG,
             "from fyredApp | checkFoundContactsAgainstFyredAppUsers"
         )
@@ -208,7 +208,7 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
         override fun onAsyncOpComplete(isSuccessful: Boolean, data: Any?, errMsgId: Int?) {
             syncedPhoneBookContacts += 1
             if (phoneBookContactsToSync == syncedPhoneBookContacts) {
-                Log.d(
+                MyLog.d(
                     LOG_TAG,
                     "from fyredApp | onAsyncOpComplete"
                 )
@@ -233,7 +233,7 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
         if (contactListStatus.value != ContactsListStatus.SYNCING_WITH_PHONE_BOOK) {
             contactListStatus.value =
                 ContactsListStatus.SYNCING_WITH_PHONE_BOOK
-            Log.d(
+            MyLog.d(
                 LOG_TAG,
                 "from fyredApp | toggleContactsBlockStatus blockContact? $shouldBlockContact"
             )

@@ -11,7 +11,6 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -123,7 +122,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        Log.d(LOG_TAG, "from fyredApp | on activity created")
+        MyLog.d(LOG_TAG, "from fyredApp | on activity created")
 
         homeViewModel.getLiveHotSpots().observe(
             viewLifecycleOwner,
@@ -131,7 +130,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
                 updateClusterManager()
                 if (::adapter.isInitialized) {
-                    Log.d(LOG_TAG, "from fyredApp | submitting  ${hotSpotList.size} hotspots")
+                    MyLog.d(LOG_TAG, "from fyredApp | submitting  ${hotSpotList.size} hotspots")
                     adapter.submitList(hotSpotList.toMutableList())
                 }
 
@@ -152,7 +151,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     private fun setupMapThenMyLocationClickListener(savedInstanceState: Bundle?) {
         binding.mapView.onCreate(savedInstanceState)
         try {
-            Log.d(LOG_TAG, "from fyredApp | initializing the map view")
+            MyLog.d(LOG_TAG, "from fyredApp | initializing the map view")
             MapsInitializer.initialize(requireContext())
             binding.mapView.getMapAsync(this)
             binding.showMyLocationTv.setOnClickListener {
@@ -183,7 +182,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
                 }
             }
         } catch (e: GooglePlayServicesNotAvailableException) {
-            Log.e(
+            MyLog.e(
                 LOG_TAG,
                 "from fyredApp | Google Play Services not available ${e.message}",
                 e.cause
@@ -197,7 +196,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     override fun onMapReady(gMap: GoogleMap?) {
         if (gMap != null) {
-            Log.d(LOG_TAG, "from fyredApp | onMapReady, map is not null")
+            MyLog.d(LOG_TAG, "from fyredApp | onMapReady, map is not null")
             googleMap = gMap
             googleMap?.setPadding(0, 0, 0, 104)
             setMapStyle()
@@ -210,7 +209,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
 
         } else {
-            Log.e(LOG_TAG, "from fyredApp | onMapReady() google map is null")
+            MyLog.e(LOG_TAG, "from fyredApp | onMapReady() google map is null")
             binding.homeParentLayout.showSnackBarToUser(
                 msgResId = R.string.failed_to_load_map,
                 isErrorMsg = true
@@ -232,10 +231,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
             )
 
             if (!success) {
-                Log.e(LOG_TAG, "from fyredApp | Map Style parsing failed.")
+                MyLog.e(LOG_TAG, "from fyredApp | Map Style parsing failed.")
             }
         } catch (e: Resources.NotFoundException) {
-            Log.e(LOG_TAG, "from fyredApp | Can't find map style. Error: ", e)
+            MyLog.e(LOG_TAG, "from fyredApp | Can't find map style. Error: ", e)
         }
     }
 
@@ -345,7 +344,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     ) {
         googleMap?.let { map ->
             if (locationToZoomTo != null) {
-                Log.d(
+                MyLog.d(
                     LOG_TAG,
                     "from fyredApp | zooming in on lat ${locationToZoomTo.latitude} , long ${locationToZoomTo.longitude}"
                 )
@@ -387,7 +386,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         //gps
         locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)?.let {
             if (foundMoreAccurateLastKnownLocation(it)) {
-                Log.d(
+                MyLog.d(
                     LOG_TAG,
                     "from fyredApp | last known location from gps accuracy = ${it.accuracy}"
                 )
@@ -397,7 +396,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         //then network provider
         locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)?.let {
             if (foundMoreAccurateLastKnownLocation(it)) {
-                Log.d(
+                MyLog.d(
                     LOG_TAG,
                     "from fyredApp | last known location from network provider accuracy = ${it.accuracy}"
                 )
@@ -421,7 +420,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
             //last known location is not yet set
             //clear pending user intents
             homeViewModel.intentAwaitingPermissions = NONE
-            Log.d(
+            MyLog.d(
                 LOG_TAG, "from fyredApp | setAndZoomInOnMyLocation() -> lastKnownLocation is null"
             )
             binding.homeParentLayout.showSnackBarToUser(
@@ -447,7 +446,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     override fun onFriendsHotSpotClicked(
         clickedMoment: UserMomentWrapper
     ) {
-        Log.d(
+        MyLog.d(
             LOG_TAG,
             "from fyredApp | friend's pin clicked - zoom to location ${clickedMoment.recordedAt.latitude}, ${clickedMoment.recordedAt.longitude}"
         )
@@ -502,7 +501,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     }
 
     override fun onContinueSharingClicked() {
-        Log.i(LOG_TAG, "from fyredApp | continue sharing clicked")
+        MyLog.i(LOG_TAG, "from fyredApp | continue sharing clicked")
         shareMomentConfirmDialog.dismiss()
         val action =
             HomeFragmentDirections.actionHomeFragmentToRecordMomentFragment(homeViewModel.userLastKnownLatLng)
@@ -512,7 +511,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     /************ GETTING LOCATION UPDATES ***/
     private fun foundMoreAccurateLastKnownLocation(location: Location): Boolean {
-        Log.d(
+        MyLog.d(
             LOG_TAG,
             "from fyredApp | foundMoreAccurateLastKnownLocation called with location of accuracy ${location.accuracy}"
         )
@@ -528,7 +527,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     private val gpsLocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location?) {
             //refresh location if accuracy is good enough
-            Log.d(
+            MyLog.d(
                 LOG_TAG, "from fyredApp | gpsLocationListener onLocationChanged"
             )
             location?.let {
@@ -540,15 +539,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
 
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-            Log.d(LOG_TAG, "from fyredApp | gpsLocationListener status changed $provider")
+            MyLog.d(LOG_TAG, "from fyredApp | gpsLocationListener status changed $provider")
         }
 
         override fun onProviderEnabled(provider: String?) {
-            Log.d(LOG_TAG, "from fyredApp | gpsLocationListener provider enabled $provider")
+            MyLog.d(LOG_TAG, "from fyredApp | gpsLocationListener provider enabled $provider")
         }
 
         override fun onProviderDisabled(provider: String?) {
-            Log.d(LOG_TAG, "from fyredApp | gpsLocationListener provider disabled $provider")
+            MyLog.d(LOG_TAG, "from fyredApp | gpsLocationListener provider disabled $provider")
         }
 
     }
@@ -559,7 +558,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
             location?.let {
                 if (foundMoreAccurateLastKnownLocation(it)) {
                     stopReceivingNetworkProviderUpdates()
-                    Log.d(
+                    MyLog.d(
                         LOG_TAG,
                         "from fyredApp | networkProvider onLocationChanged accuracy = ${it.accuracy}"
                     )
@@ -568,26 +567,26 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         }
 
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-            Log.d(LOG_TAG, "from fyredApp | networkProvider status changed $provider")
+            MyLog.d(LOG_TAG, "from fyredApp | networkProvider status changed $provider")
         }
 
         override fun onProviderEnabled(provider: String?) {
-            Log.d(LOG_TAG, "from fyredApp | networkProvider provider enabled $provider")
+            MyLog.d(LOG_TAG, "from fyredApp | networkProvider provider enabled $provider")
         }
 
         override fun onProviderDisabled(provider: String?) {
-            Log.d(LOG_TAG, "from fyredApp | networkProvider provider disabled $provider")
+            MyLog.d(LOG_TAG, "from fyredApp | networkProvider provider disabled $provider")
         }
 
     }
 
     private fun stopReceivingGpsUpdates() {
-        Log.d(LOG_TAG, "from fyredApp | stopGPSReceivingLocationUpdates called")
+        MyLog.d(LOG_TAG, "from fyredApp | stopGPSReceivingLocationUpdates called")
         locationManager.removeUpdates(gpsLocationListener)
     }
 
     private fun stopReceivingNetworkProviderUpdates() {
-        Log.d(LOG_TAG, "from fyredApp | stopNetworkProviderReceivingLocationUpdates called")
+        MyLog.d(LOG_TAG, "from fyredApp | stopNetworkProviderReceivingLocationUpdates called")
         locationManager.removeUpdates(networkProviderListener)
     }
 
@@ -618,7 +617,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     /************ SAVING STATE *************/
     private fun restoreCameraPosition() {
-        Log.d(LOG_TAG, "from fyredApp | restoring CameraPosition")
+        MyLog.d(LOG_TAG, "from fyredApp | restoring CameraPosition")
         val lat = sharedPref.getString(CAMERA_POSITION_LAT, null)?.toDouble()
         val lng = sharedPref.getString(CAMERA_POSITION_LNG, null)?.toDouble()
         val zoom = sharedPref.getFloat(CAMERA_POSITION_ZOOM, 1F)
@@ -632,7 +631,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     }
 
     private fun saveCameraPosition() {
-        Log.d(LOG_TAG, "from fyredApp | saving CameraPosition")
+        MyLog.d(LOG_TAG, "from fyredApp | saving CameraPosition")
         googleMap?.let { map ->
             camPosition = CameraPosition(
                 map.cameraPosition.target,
@@ -658,7 +657,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     /*** NAVIGATE AWAY **/
     override fun onSeeMoreClicked(userMomentWrapper: UserMomentWrapper) {
         viewHotSpotMomentsDialog?.dismiss()
-        Log.d(LOG_TAG, "from fyredApp | onSeeMoreClicked")
+        MyLog.d(LOG_TAG, "from fyredApp | onSeeMoreClicked")
         val action =
             HomeFragmentDirections.actionHomeFragmentToHotSpotFragment(userMomentWrapper)
         findNavController(this).navigate(action)
@@ -697,7 +696,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
             }
             handleIntentsAwaitingForPermissions()
         }
-        Log.d(LOG_TAG, "from fyredApp | onResume called")
+        MyLog.d(LOG_TAG, "from fyredApp | onResume called")
     }
 
     override fun onPause() {
@@ -708,7 +707,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         stopReceivingGpsUpdates()
         stopReceivingNetworkProviderUpdates()
         saveCameraPosition()
-        Log.d(LOG_TAG, "from fyredApp | onPause called")
+        MyLog.d(LOG_TAG, "from fyredApp | onPause called")
     }
 
 
@@ -716,21 +715,21 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         super.onStop()
         if (::binding.isInitialized)
             binding.mapView.onStop()
-        Log.d(LOG_TAG, "from fyredApp | onStop called")
+        MyLog.d(LOG_TAG, "from fyredApp | onStop called")
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
         if (::binding.isInitialized)
             binding.mapView.onLowMemory()
-        Log.d(LOG_TAG, "from fyredApp | onLowMemory called")
+        MyLog.d(LOG_TAG, "from fyredApp | onLowMemory called")
     }
 
     override fun onDestroy() {
         super.onDestroy()
         if (::binding.isInitialized)
             binding.mapView.onDestroy()
-        Log.d(LOG_TAG, "from fyredApp | onDestroy called")
+        MyLog.d(LOG_TAG, "from fyredApp | onDestroy called")
 
     }
 
@@ -751,7 +750,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
             }
             //when done
             if (!locationPermissionsJustDenied) {
-                Log.d(LOG_TAG, "from fyredApp | location permissions granted")
+                MyLog.d(LOG_TAG, "from fyredApp | location permissions granted")
                 if (homeViewModel.intentAwaitingPermissions == ZOOM_ON_MY_LOCATION
                     || homeViewModel.intentAwaitingPermissions == SHARE_MOMENT
                 ) {
@@ -759,7 +758,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
                 }
 
             } else {
-                Log.d(LOG_TAG, "from fyredApp | location permissions denied")
+                MyLog.d(LOG_TAG, "from fyredApp | location permissions denied")
                 //reset
                 homeViewModel.intentAwaitingPermissions = NONE
 
@@ -770,7 +769,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     /***********MENU ************/
     override fun onPrepareOptionsMenu(menu: Menu) {
-        Log.d(LOG_TAG, "from fyredApp | onPrepareOptionsMenu called")
+        MyLog.d(LOG_TAG, "from fyredApp | onPrepareOptionsMenu called")
         menu.findItem(R.id.contactsFragment).isVisible = true
         menu.findItem(R.id.userProfileFragment).isVisible = true
         menu.findItem(R.id.submitFeedbackFragment).isVisible = true
@@ -779,7 +778,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Log.d(LOG_TAG, "from fyredApp | onOptionsItemSelected called")
+        MyLog.d(LOG_TAG, "from fyredApp | onOptionsItemSelected called")
         return item.onNavDestinationSelected(findNavController(this)) || super.onOptionsItemSelected(
             item
         )

@@ -1,6 +1,5 @@
 package com.dev_vlad.fyredapp.repositories
 
-import android.util.Log
 import androidx.core.net.toUri
 import com.bumptech.glide.RequestManager
 import com.dev_vlad.fyredapp.interfaces.AsyncResultListener
@@ -9,6 +8,7 @@ import com.dev_vlad.fyredapp.models.UserMomentWrapper
 import com.dev_vlad.fyredapp.utils.AppConstants
 import com.dev_vlad.fyredapp.utils.AppConstants.MOMENTS_STORAGE_FOLDER
 import com.dev_vlad.fyredapp.utils.ImageProcessing
+import com.dev_vlad.fyredapp.utils.MyLog
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.CoroutineScope
@@ -54,14 +54,14 @@ object UserMomentsStorageRepo {
                 val byteArray = ImageProcessing.scaleAndResizeImageAsync(fileToUpload, glideRef)
                 withContext(Dispatchers.Main) {
                     if (byteArray == null) {
-                        Log.e(
+                        MyLog.e(
                             LOG_TAG,
                             "from fyredApp | compressing image $currentlyUploadingFileNo failed"
                         )
                         //upload as a file
                         uploadMomentAsAFile(fileToUpload)
                     } else {
-                        Log.d(LOG_TAG, "from fyredApp | compressing image worked")
+                        MyLog.d(LOG_TAG, "from fyredApp | compressing image worked")
                         uploadMomentAsAByteArray(byteArray)
                     }
                 }
@@ -82,7 +82,7 @@ object UserMomentsStorageRepo {
     }
 
     private fun uploadMomentAsAFile(momentFile: String) {
-        Log.d(LOG_TAG, "from fyredApp | uploadMomentAsAFile called")
+        MyLog.d(LOG_TAG, "from fyredApp | uploadMomentAsAFile called")
         try {
             val fileRef = userMomentsFolder.child(getTimeStampAsStr())
             val uploadTask = fileRef.putFile(momentFile.toUri())
@@ -99,7 +99,7 @@ object UserMomentsStorageRepo {
 
                     task.result?.let {
                         currentlyUploadingMoment.mediaUriString = it.toString()
-                        Log.e(
+                        MyLog.e(
                             LOG_TAG,
                             "from fyredApp | uploadMomentAsAFile file $currentlyUploadingFileNo uploaded"
                         )
@@ -108,7 +108,7 @@ object UserMomentsStorageRepo {
 
                 } else {
                     // Handle failures
-                    Log.e(
+                    MyLog.e(
                         LOG_TAG,
                         "from fyredApp | uploadMomentAsAFile Failed ${task.exception?.message}",
                         task.exception?.cause
@@ -119,7 +119,7 @@ object UserMomentsStorageRepo {
                 }
             }
         } catch (exc: Exception) {
-            Log.e(
+            MyLog.e(
                 LOG_TAG,
                 "from fyredApp | uploadMomentAsAFile exception occurred -> ${exc.message}",
                 exc.cause
@@ -132,7 +132,7 @@ object UserMomentsStorageRepo {
     }
 
     private fun uploadMomentAsAByteArray(byteArray: ByteArray) {
-        Log.d(LOG_TAG, "from fyredApp | uploadMomentAsAByteArray called")
+        MyLog.d(LOG_TAG, "from fyredApp | uploadMomentAsAByteArray called")
         try {
             val fileRef = userMomentsFolder.child(getTimeStampAsStr())
             val uploadTask = fileRef.putBytes(byteArray)
@@ -149,7 +149,7 @@ object UserMomentsStorageRepo {
 
                     task.result?.let {
                         currentlyUploadingMoment.mediaUriString = it.toString()
-                        Log.d(
+                        MyLog.d(
                             LOG_TAG,
                             "from fyredApp | uploadMomentAsAByteArray file $currentlyUploadingFileNo uploaded"
                         )
@@ -160,7 +160,7 @@ object UserMomentsStorageRepo {
 
                 } else {
                     // Handle failures
-                    Log.e(
+                    MyLog.e(
                         LOG_TAG,
                         "from fyredApp | uploadMomentAsAByteArray Failed ${task.exception?.message}",
                         task.exception?.cause
@@ -171,7 +171,7 @@ object UserMomentsStorageRepo {
                 }
             }
         } catch (exc: Exception) {
-            Log.e(
+            MyLog.e(
                 LOG_TAG,
                 "from fyredApp | uploadMomentAsAByteArray exception occurred -> ${exc.message}",
                 exc.cause
@@ -185,19 +185,19 @@ object UserMomentsStorageRepo {
     }
 
     private fun uploadMomentsInfo() {
-        Log.d(LOG_TAG, "from fyredApp | uploadMomentsInfo called")
+        MyLog.d(LOG_TAG, "from fyredApp | uploadMomentsInfo called")
         FirebaseFirestore.getInstance()
             .collection(AppConstants.USERS_MOMENTS_COLLECTION_NAME)
             .document(momentsBeingUploaded.recordedBy.userId!!)
             .set(momentsBeingUploaded)
             .addOnSuccessListener {
-                Log.d(LOG_TAG, "from fyredApp | moments uploaded sucessfully")
+                MyLog.d(LOG_TAG, "from fyredApp | moments uploaded sucessfully")
                 onUploadMomentsCompleted.onAsyncOpComplete(
                     isSuccessful = true
                 )
             }
             .addOnFailureListener {
-                Log.e(
+                MyLog.e(
                     LOG_TAG,
                     "from fyredApp | uploading moments info failed ${it.message}",
                     it.cause

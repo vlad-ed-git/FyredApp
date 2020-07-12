@@ -1,7 +1,6 @@
 package com.dev_vlad.fyredapp.ui.profile
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.bumptech.glide.Glide
@@ -9,6 +8,7 @@ import com.bumptech.glide.RequestManager
 import com.dev_vlad.fyredapp.interfaces.AsyncResultListener
 import com.dev_vlad.fyredapp.models.Users
 import com.dev_vlad.fyredapp.repositories.UserRepo
+import com.dev_vlad.fyredapp.utils.MyLog
 
 class UserProfileViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -77,7 +77,7 @@ class UserProfileViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     private fun updateUserAuthPhotoUri() {
-        Log.d(LOG_TAG, "from fyredApp | updateUserAuthPhotoUri called")
+        MyLog.d(LOG_TAG, "from fyredApp | updateUserAuthPhotoUri called")
         UserRepo.updateUserAuthPhotoUri(newPhotoUriAsStr, callback)
     }
 
@@ -88,12 +88,12 @@ class UserProfileViewModel(application: Application) : AndroidViewModel(applicat
                 return
             }
             oldUserProfile.userPhotoUriStr != null && newPhotoUriAsStr == null -> {
-                Log.d(LOG_TAG, "uploadProfilePicToStorage() -> delete photo")
+                MyLog.d(LOG_TAG, "uploadProfilePicToStorage() -> delete photo")
                 UserRepo.deleteMyProfilePhotoFromStorage(callback)
                 userProfileStatus.value = UserProfileStatus.DELETING_PROFILE_PIC
             }
             newPhotoUriAsStr != null -> {
-                Log.d(LOG_TAG, "uploadProfilePicToStorage() -> update  photo")
+                MyLog.d(LOG_TAG, "uploadProfilePicToStorage() -> update  photo")
                 UserRepo.uploadUserProfilePic(newPhotoUriAsStr!!, callback, glideRef)
                 userProfileStatus.value = UserProfileStatus.UPLOADING_PROFILE_PIC
             }

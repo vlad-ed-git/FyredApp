@@ -1,6 +1,5 @@
 package com.dev_vlad.fyredapp.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -12,6 +11,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.dev_vlad.fyredapp.R
 import com.dev_vlad.fyredapp.databinding.ListItemContactBinding
 import com.dev_vlad.fyredapp.room.entities.MyContacts
+import com.dev_vlad.fyredapp.utils.MyLog
 
 class MyContactsAdapter(private val clickListener: ContactsClickedListener) :
     ListAdapter<MyContacts, MyContactsAdapter.ViewHolder>(MyContactsDiffCallback()) {
@@ -37,7 +37,7 @@ class MyContactsAdapter(private val clickListener: ContactsClickedListener) :
             newItem: MyContacts
         ): Boolean {
             val areSameItems = oldItem.isSameAs(newItem)
-            Log.d("MyContactsAdapter", "from fyredapp | areItemsSame? $areSameItems")
+            MyLog.d("MyContactsAdapter", "from fyredapp | areItemsSame? $areSameItems")
             return oldItem.phoneNumber == newItem.phoneNumber
         }
 
@@ -46,11 +46,11 @@ class MyContactsAdapter(private val clickListener: ContactsClickedListener) :
             newItem: MyContacts
         ): Boolean {
             val haveSameContents = oldItem.hasSameContentsAs(newItem)
-            Log.d(
+            MyLog.d(
                 "MyContactsAdapter",
                 "from fyredapp | ${oldItem.canViewMyMoments} , ${newItem.canViewMyMoments}"
             )
-            Log.d("MyContactsAdapter", "from fyredapp |  areContentsSame? $haveSameContents")
+            MyLog.d("MyContactsAdapter", "from fyredapp |  areContentsSame? $haveSameContents")
             return haveSameContents
         }
     }
@@ -60,7 +60,7 @@ class MyContactsAdapter(private val clickListener: ContactsClickedListener) :
 
         fun bind(contact: MyContacts, clickListener: ContactsClickedListener) {
 
-            Log.d("MyContactsAdapter", "binding ${contact.profileUrl}")
+            MyLog.d("MyContactsAdapter", "binding ${contact.profileUrl}")
             Glide.with(itemView.context)
                 .load(contact.profileUrl)
                 .placeholder(R.drawable.ic_empty_profile_pic)

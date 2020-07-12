@@ -1,7 +1,6 @@
 package com.dev_vlad.fyredapp.repositories
 
 import android.net.Uri
-import android.util.Log
 import androidx.core.net.toUri
 import com.bumptech.glide.RequestManager
 import com.dev_vlad.fyredapp.interfaces.AsyncResultListener
@@ -10,6 +9,7 @@ import com.dev_vlad.fyredapp.models.Users
 import com.dev_vlad.fyredapp.utils.AppConstants
 import com.dev_vlad.fyredapp.utils.AppConstants.USER_FEEDBACK_COLLECTION_NAME
 import com.dev_vlad.fyredapp.utils.ImageProcessing
+import com.dev_vlad.fyredapp.utils.MyLog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
@@ -44,7 +44,7 @@ object UserRepo {
 
     fun saveUserData(signedInUser: Users, callback: AsyncResultListener) {
         if (!userIsLoggedIn()) {
-            Log.e(LOG_TAG, "from fyredApp | registerUserIfNotExists() user is logged out")
+            MyLog.e(LOG_TAG, "from fyredApp | registerUserIfNotExists() user is logged out")
             callback.onAsyncOpComplete(isSuccessful = false)
             return
         }
@@ -58,7 +58,7 @@ object UserRepo {
                 callback.onAsyncOpComplete(isSuccessful = true)
             }
             .addOnFailureListener {
-                Log.e(
+                MyLog.e(
                     LOG_TAG,
                     "from fyredApp | registerUserIfNotExists() failed ${it.message}",
                     it.cause
@@ -75,12 +75,12 @@ object UserRepo {
         glideRef: RequestManager
     ) {
         if (!userIsLoggedIn()) {
-            Log.e(LOG_TAG, "from fyredApp |  uploadUserProfilePic() user is logged out")
+            MyLog.e(LOG_TAG, "from fyredApp |  uploadUserProfilePic() user is logged out")
             callback.onAsyncOpComplete(isSuccessful = false)
             return
         }
 
-        Log.d(
+        MyLog.d(
             LOG_TAG,
             "from fyredApp | uploadUserProfilePic changing pic"
         )
@@ -88,7 +88,7 @@ object UserRepo {
         CoroutineScope(Main).launch {
             val byteArray = ImageProcessing.scaleAndResizeImageAsync(newPhotoUriAsStr, glideRef)
             if (byteArray == null) {
-                Log.e(
+                MyLog.e(
                     LOG_TAG,
                     "from fyredApp | uploadUserProfilePic compression failed"
                 )
@@ -104,14 +104,14 @@ object UserRepo {
                     }
                     fileRef.downloadUrl
                 }.addOnSuccessListener {
-                    Log.d(LOG_TAG, "from fyredApp | uploadUserProfilePic uploaded $it")
+                    MyLog.d(LOG_TAG, "from fyredApp | uploadUserProfilePic uploaded $it")
                     callback.onAsyncOpComplete(
                         isSuccessful = true,
                         data = it.toString()
                     )
                 }.addOnFailureListener {
                     // Handle failures
-                    Log.e(
+                    MyLog.e(
                         LOG_TAG,
                         "from fyredApp | uploadUserProfilePic Failed ${it.message}",
                         it.cause
@@ -128,12 +128,12 @@ object UserRepo {
         callback: AsyncResultListener
     ) {
         if (!userIsLoggedIn()) {
-            Log.e(LOG_TAG, "from fyredApp | updateUserAuthPhotoUri() user is logged out")
+            MyLog.e(LOG_TAG, "from fyredApp | updateUserAuthPhotoUri() user is logged out")
             callback.onAsyncOpComplete(isSuccessful = false)
             return
         }
 
-        Log.d(LOG_TAG, "from fyredApp | updateUserAuthPhotoUri")
+        MyLog.d(LOG_TAG, "from fyredApp | updateUserAuthPhotoUri")
         val user = FirebaseAuth.getInstance().currentUser!!
         val profileUpdates = UserProfileChangeRequest.Builder()
             .setPhotoUri(newPhotoUriAsStr?.toUri())
@@ -143,10 +143,10 @@ object UserRepo {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Update successful
-                    Log.d(LOG_TAG, "from fyredApp | updateUserAuthPhotoUri successful")
+                    MyLog.d(LOG_TAG, "from fyredApp | updateUserAuthPhotoUri successful")
                     callback.onAsyncOpComplete(isSuccessful = true)
                 } else {
-                    Log.d(
+                    MyLog.d(
                         LOG_TAG,
                         "from fyredApp | updateUserAuthPhotoUri failed ${task.exception?.message}",
                         task.exception?.cause
@@ -160,26 +160,29 @@ object UserRepo {
 
     fun deleteMyProfilePhotoFromStorage(callback: AsyncResultListener) {
         if (!userIsLoggedIn()) {
-            Log.e(LOG_TAG, "from fyredApp |  deleteMyProfilePhotoFromStorage() user is logged out")
+            MyLog.e(
+                LOG_TAG,
+                "from fyredApp |  deleteMyProfilePhotoFromStorage() user is logged out"
+            )
             callback.onAsyncOpComplete(isSuccessful = false)
             return
         }
 
-        Log.d(
+        MyLog.d(
             LOG_TAG,
             "from fyredApp |  deleteMyProfilePhotoFromStorage deleting pic"
         )
         val fileRef = userProfilePhotosFolder.child("profile_photo")
         fileRef.delete()
             .addOnSuccessListener {
-                Log.d(
+                MyLog.d(
                     LOG_TAG,
                     "from fyredApp |  deleteMyProfilePhotoFromStorage deleted profile pic"
                 )
                 callback.onAsyncOpComplete(isSuccessful = true)
             }
             .addOnFailureListener {
-                Log.e(
+                MyLog.e(
                     LOG_TAG,
                     "from fyredApp |  deleteMyProfilePhotoFromStorage failed to delete ${it.message}",
                     it.cause
@@ -190,7 +193,7 @@ object UserRepo {
     }
 
     fun uploadUserFeedback(rating: Float, feedback: String, callback: AsyncResultListener) {
-        Log.d(LOG_TAG, "uploading user feedback")
+        MyLog.d(LOG_TAG, "uploading user feedback")
         val userFeedback =
             UserFeedback(userRating = rating, userFeedback = feedback, positive = (rating > 3))
         FirebaseFirestore.getInstance().collection(USER_FEEDBACK_COLLECTION_NAME)
@@ -199,7 +202,7 @@ object UserRepo {
             .addOnSuccessListener {
                 callback.onAsyncOpComplete(isSuccessful = true)
             }.addOnFailureListener { exception ->
-                Log.d(
+                MyLog.d(
                     LOG_TAG,
                     " uploadUserFeedback => ${exception.message}",
                     exception.cause

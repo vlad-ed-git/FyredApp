@@ -1,7 +1,6 @@
 package com.dev_vlad.fyredapp.utils
 
 import android.graphics.Bitmap
-import android.util.Log
 import com.bumptech.glide.RequestManager
 import com.dev_vlad.fyredapp.utils.AppConstants.IMG_COMPRESS_FACTOR
 import com.dev_vlad.fyredapp.utils.AppConstants.PREFERRED_IMG_HEIGHT
@@ -32,7 +31,7 @@ object ImageProcessing {
         glideRef: RequestManager?
     ): ByteArray? = withContext(Dispatchers.IO) {
         try {
-            Log.d(LOG_TAG, "from fyredApp | scaling and resizing image at uri str : $photoUriStr")
+            MyLog.d(LOG_TAG, "from fyredApp | scaling and resizing image at uri str : $photoUriStr")
             val futureTarget = glideRef!!
                 .asBitmap()
                 .load(photoUriStr)
@@ -41,7 +40,7 @@ object ImageProcessing {
             val bitmap = futureTarget.get()
             glideRef.clear(futureTarget)
 
-            Log.d(
+            MyLog.d(
                 " ImageProcessing",
                 "from fyredApp | new bitmap w * h ${bitmap.width} ,  ${bitmap.height}"
             )
@@ -59,7 +58,7 @@ object ImageProcessing {
             byteArray
 
         } catch (exc: Exception) {
-            Log.d(LOG_TAG, "from fyredApp | Failed to compress image ${exc.message}", exc.cause)
+            MyLog.d(LOG_TAG, "from fyredApp | Failed to compress image ${exc.message}", exc.cause)
             null
         }
     }

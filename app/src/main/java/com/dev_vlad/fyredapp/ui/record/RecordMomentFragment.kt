@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.*
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
@@ -26,15 +25,12 @@ import com.dev_vlad.fyredapp.models.RecordedMoment
 import com.dev_vlad.fyredapp.ui.adapters.RecordedMomentsAdapter
 import com.dev_vlad.fyredapp.ui.dialogs.EditMyMomentDialog
 import com.dev_vlad.fyredapp.ui.record.RecordMomentViewModel.UploadingState.*
+import com.dev_vlad.fyredapp.utils.*
 import com.dev_vlad.fyredapp.utils.AppConstants.MAX_MOMENTS
 import com.dev_vlad.fyredapp.utils.AppConstants.MAX_VIDEO_SECONDS
 import com.dev_vlad.fyredapp.utils.AppConstants.PERMISSION_REQUEST_CAMERA
 import com.dev_vlad.fyredapp.utils.AppConstants.PERMISSION_REQUEST_CAMERA_FOR_VIDEO
 import com.dev_vlad.fyredapp.utils.AppConstants.PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE
-import com.dev_vlad.fyredapp.utils.hasAppPermission
-import com.dev_vlad.fyredapp.utils.requestAppPermissions
-import com.dev_vlad.fyredapp.utils.shouldShowRationaleForAppPermission
-import com.dev_vlad.fyredapp.utils.showSnackBarToUser
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -147,7 +143,7 @@ class RecordMomentFragment : Fragment() {
         recordViewModel.getLiveRecordedMoments().observe(viewLifecycleOwner,
             androidx.lifecycle.Observer { recordedMoments ->
                 val totalMomentsSoFar = recordedMoments.size
-                Log.d(LOG_TAG, "from fyredApp | total moments $totalMomentsSoFar")
+                MyLog.d(LOG_TAG, "from fyredApp | total moments $totalMomentsSoFar")
                 if (totalMomentsSoFar > 0) {
                     binding.emptyMomentsTv.visibility = View.GONE
                     if (totalMomentsSoFar >= MAX_MOMENTS) {
@@ -170,7 +166,7 @@ class RecordMomentFragment : Fragment() {
                 }
 
                 if (::adapter.isInitialized) {
-                    Log.d(LOG_TAG, "from fyredApp | moments list changed")
+                    MyLog.d(LOG_TAG, "from fyredApp | moments list changed")
                     adapter.submitList(recordedMoments.toMutableList())
                 }
             })
@@ -285,11 +281,11 @@ class RecordMomentFragment : Fragment() {
                             createImageFile()
                         } catch (ex: IOException) {
                             // Error occurred while creating the File
-                            Log.d(
+                            MyLog.d(
                                 LOG_TAG,
                                 "from fyredApp | takePhoto() ->  Error occurred while creating the File"
                             )
-                            Log.d(LOG_TAG, ex.message, ex.cause)
+                            MyLog.d(LOG_TAG, ex.message, ex.cause)
                             binding.recordFragmentLayout.showSnackBarToUser(
                                 msgResId = R.string.failed_to_set_photo_path,
                                 isErrorMsg = true
@@ -349,7 +345,7 @@ class RecordMomentFragment : Fragment() {
     }
 
     private fun onMomentClicked(recordedMoment: RecordedMoment) {
-        Log.d(LOG_TAG, "from fyredApp | moment clicked")
+        MyLog.d(LOG_TAG, "from fyredApp | moment clicked")
         editMomentDialog = EditMyMomentDialog(
             recordedMoment = recordedMoment
         )
@@ -391,7 +387,7 @@ class RecordMomentFragment : Fragment() {
                                 val selectedImages = mClipData.itemCount
                                 for (index in 0 until selectedImages) {
                                     val item: ClipData.Item = mClipData.getItemAt(index)
-                                    Log.d(
+                                    MyLog.d(
                                         LOG_TAG,
                                         "from fyredApp | on act result, adding 1 moment of many"
                                     )
@@ -405,7 +401,7 @@ class RecordMomentFragment : Fragment() {
                         }
 
                         data.data != null -> {
-                            Log.d(LOG_TAG, "from fyredApp | on act result, adding 1 gallery pic")
+                            MyLog.d(LOG_TAG, "from fyredApp | on act result, adding 1 gallery pic")
                             val moment = RecordedMoment(
                                 mediaUriString = data.data.toString(),
                                 image = true
@@ -422,7 +418,7 @@ class RecordMomentFragment : Fragment() {
             requestCode == REQUEST_CODE_VIDEO_CAPTURE && resultCode == RESULT_OK -> {
                 //is video capture access
                 if (data != null && data.data != null) {
-                    Log.d(LOG_TAG, "from fyredApp | on act result, adding 1 video")
+                    MyLog.d(LOG_TAG, "from fyredApp | on act result, adding 1 video")
                     val moment = RecordedMoment(
                         mediaUriString = data.data.toString(),
                         image = false
@@ -440,14 +436,14 @@ class RecordMomentFragment : Fragment() {
                             recordViewModel.pathOfJustTakenPhoto!!
                         )
                     )
-                    Log.d(LOG_TAG, "from fyredApp | on act result, adding 1 captured photo")
+                    MyLog.d(LOG_TAG, "from fyredApp | on act result, adding 1 captured photo")
                     val moment = RecordedMoment(
                         mediaUriString = fullImgUri.toString(),
                         image = true
                     )
                     recordViewModel.addMoment(moment)
                 } else {
-                    Log.e(LOG_TAG, "from fyredApp | on act result, pathOfJustTakenPhoto is null")
+                    MyLog.e(LOG_TAG, "from fyredApp | on act result, pathOfJustTakenPhoto is null")
                 }
             }
         }
@@ -455,7 +451,7 @@ class RecordMomentFragment : Fragment() {
 
     private fun sendCapturedMoments() {
         if (location != null) {
-            Log.d(
+            MyLog.d(
                 LOG_TAG,
                 "from fyredApp | Sending captured moments from ${location!!.latitude}, ${location!!.longitude}"
             )
@@ -463,7 +459,10 @@ class RecordMomentFragment : Fragment() {
             recordViewModel.uploadUserMoment(userMomentsTakenAtLatLng = location!!)
 
         } else {
-            Log.d(LOG_TAG, "from fyredApp | Failed to send captured moments, user location is null")
+            MyLog.d(
+                LOG_TAG,
+                "from fyredApp | Failed to send captured moments, user location is null"
+            )
 
         }
     }
@@ -533,13 +532,13 @@ class RecordMomentFragment : Fragment() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
-        Log.d(LOG_TAG, "from fyredApp | onPrepareOptionsMenu called")
+        MyLog.d(LOG_TAG, "from fyredApp | onPrepareOptionsMenu called")
         menu.findItem(R.id.shareMoment).isVisible = true
         super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Log.d(LOG_TAG, "from fyredApp | onOptionsItemSelected called")
+        MyLog.d(LOG_TAG, "from fyredApp | onOptionsItemSelected called")
         return when (item.itemId) {
             R.id.shareMoment -> {
                 sendCapturedMoments()
